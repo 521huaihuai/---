@@ -35,8 +35,7 @@ public class PowerfulParticle_scattering extends PowerfulParticleAbstract
 		super(mColor, mRadius, mx, my, mDirection);
 	}
 
-	public PowerfulParticle_scattering(long mLiveTime, int mColor, int mRadius, int mx, int my,
-			double mDirection)
+	public PowerfulParticle_scattering(long mLiveTime, int mColor, int mRadius, int mx, int my, double mDirection)
 	{
 		super(mLiveTime, mColor, mRadius, mx, my, mDirection);
 	}
@@ -61,10 +60,10 @@ public class PowerfulParticle_scattering extends PowerfulParticleAbstract
 		{
 			paint.setColor(snake.getList().get(i).getColor());
 			step = MainActivity.screenHeight * 1.0f / 4 / mTimes;
-			canvas.drawLine(mx, my, mx + (float) ((times * step) * Math.cos(Math.PI / size * i)),
-					(float) (my - times * step * Math.sin(Math.PI / size * i)), paint);
-			canvas.drawLine(mx, my, mx - (float) ((times * step) * Math.cos(Math.PI / size * i)),
-					(float) (my + step * times * Math.sin(Math.PI / size * i)), paint);
+			canvas.drawLine(mx, my, mx + (float) ((times * step) * Math.cos(Math.PI / size * i)), (float) (my - times * step * Math.sin(Math.PI / size * i)),
+					paint);
+			canvas.drawLine(mx, my, mx - (float) ((times * step) * Math.cos(Math.PI / size * i)), (float) (my + step * times * Math.sin(Math.PI / size * i)),
+					paint);
 		}
 	}
 
@@ -80,8 +79,9 @@ public class PowerfulParticle_scattering extends PowerfulParticleAbstract
 	@Override
 	public boolean RangeDetermination(PieceParticle mParticle, int startx, int starty, int endx, int endy)
 	{
-		return (mParticle.getX() + mParticle.getRadius()) < Math.min(startx, endx)
-				|| (mParticle.getX() - mParticle.getRadius()) > Math.max(startx, endx);
+
+		return (mParticle.getRadius() + MainActivity.screenHeight * 1.0f / 4) < Math
+				.sqrt((Math.pow(mParticle.getX() - startx, 2) + Math.pow(mParticle.getY() - starty, 2)));
 	}
 
 }
