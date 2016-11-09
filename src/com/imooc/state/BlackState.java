@@ -32,25 +32,36 @@ public class BlackState implements State {
 	@Override
 	public void handle_02(Vector<PieceParticle> vector) {
 		for (PieceParticle particle : vector) {
-			if (particle.getColor() == MyConstant.COLOR_BLACK) {
+			if (particle.getColor() == MyConstant.COLOR_BLACK)
+			{
 				Log.e("521huaihuai", "sameColorCrossHandle");
 				// 如果是同色
-				if (mCrossListener != null) {
+				if (mCrossListener != null)
+				{
 					mCrossListener.sameColorCrossHandle(MyConstant.COLOR_BLACK);
 				}
-			} else if (particle.getColor() == MyConstant.COLOR_GREEN) {
+			}
+			else if (particle.getColor() == MyConstant.COLOR_GREEN)
+			{
 				Log.e("521huaihuai", "oppositeColorCrossHandle");
 				// 如果是
-				if (mCrossListener != null) {
+				if (mCrossListener != null)
+				{
 					mCrossListener.oppositeColorCrossHandle(MyConstant.COLOR_GREEN);
 				}
-			} else if (particle.getColor() == MyConstant.COLOR_GOLD) {
+			}
+			else if (particle.getColor() == MyConstant.COLOR_GOLD)
+			{
 				Log.e("521huaihuai", "birthColorCrosshandle");
-				if (mCrossListener != null) {
+				if (mCrossListener != null)
+				{
 					mCrossListener.differentColorCrossHandle(particle.getColor());
 				}
-			} else {
-				if (mCrossListener != null) {
+			}
+			else
+			{
+				if (mCrossListener != null)
+				{
 					mCrossListener.birthColorCrosshandle(particle.getColor());
 				}
 			}
@@ -66,8 +77,39 @@ public class BlackState implements State {
 
 	@Override
 	public void handle_04(Block block) {
-		// TODO Auto-generated method stub
-
+		if (block.getColor() == MyConstant.COLOR_BLACK)
+		{
+			Log.e("521huaihuai", "sameColorCrossHandle");
+			// 如果是同色
+			if (mCrossBlockListener != null)
+			{
+				mCrossBlockListener.onSameColorCrossBlock(block, MyConstant.COLOR_BLACK);
+			}
+		}
+		else if (block.getColor() == MyConstant.COLOR_GREEN)
+		{
+			Log.e("521huaihuai", "oppositeColorCrossHandle");
+			// 如果是
+			if (mCrossBlockListener != null)
+			{
+				mCrossBlockListener.onOppositeColorCrossBlock(block, MyConstant.COLOR_GREEN);
+			}
+		}
+		else if (block.getColor() == MyConstant.COLOR_GOLD)
+		{
+			Log.e("521huaihuai", "birthColorCrosshandle");
+			if (mCrossListener != null)
+			{
+				mCrossBlockListener.onDifferentColorCrossBlock(block, block.getColor());
+			}
+		}
+		else
+		{
+			if (mCrossBlockListener != null)
+			{
+				mCrossBlockListener.onBirthColorCrossBlock(block, block.getColor());
+			}
+		}
 	}
 
 	@Override
