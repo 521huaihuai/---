@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="ddd" value="boolean"></attr>
+
+    
+    <declare-styleable name="dede">
+        <attr name="ddd"></attr>
+    </declare-styleable>
+
+</resources>
