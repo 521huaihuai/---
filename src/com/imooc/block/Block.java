@@ -3,6 +3,8 @@ package com.imooc.block;
 import com.imooc.snake.Node;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 
 public abstract class Block
 {
@@ -36,6 +38,12 @@ public abstract class Block
 	{
 		
 		return false;
+	}
+
+	public void drawBlock(Canvas canvas, Paint paint, int screenWidth, int screenHeight)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

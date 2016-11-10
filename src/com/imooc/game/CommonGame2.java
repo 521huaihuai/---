@@ -4,7 +4,9 @@ import java.util.LinkedList;
 import java.util.Vector;
 
 import com.imooc.block.Block;
+import com.imooc.block.DenseFog;
 import com.imooc.block.ICrossBlockListener;
+import com.imooc.block.ICrossDenfogListener;
 import com.imooc.block.ICrossParticleListener;
 import com.imooc.control.IMoveListener;
 import com.imooc.myConstant.MyConstant;
@@ -23,7 +25,7 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 
-public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticleListener, IPowerfulParticleListener, ICrossBlockListener
+public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticleListener, IPowerfulParticleListener, ICrossBlockListener, ICrossDenfogListener
 {
 
 	// 粒子
@@ -34,6 +36,7 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 	protected Snake mSnake;
 	// 阻碍物
 	private Vector<Block> mBlocks;
+	private Vector<DenseFog> mDenfogs;
 	// 收集限制
 	protected int mCollectionNUM = 0;
 	// 蛇节点的管理
@@ -70,6 +73,7 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 			mSnake = new RedSnake();
 		}
 		mBlocks = getBlock();
+		mDenfogs = getDenseFog();
 		mList = mSnake.getList();
 		firstNode = mList.getFirst();
 		radius = mSnake.getRadius();
@@ -112,6 +116,11 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 	 * 获取阻碍物
 	 */
 	public abstract Vector<Block> getBlock();
+
+	/**
+	 * 获取迷雾
+	 */
+	public abstract Vector<DenseFog> getDenseFog();
 
 	/**
 	 * 血量降为0
@@ -164,6 +173,22 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 			paint.setColor(particle.getColor());
 			canvas.drawCircle(particle.getX(), particle.getY(), particle.getRadius(), paint);
 		}
+		// 绘制障碍
+		if (mBlocks != null)
+		{
+			for (Block block : mBlocks)
+			{
+				block.drawBlock(canvas, paint, screenWidth, screenHeight);
+			}
+		}
+		// 绘制迷雾
+		if (mDenfogs != null)
+		{
+			for (DenseFog denseFog : mDenfogs)
+			{
+				denseFog.drawDenseFog(canvas, paint, screenWidth, screenHeight);
+			}
+		}
 		// 绘制技能粒子
 		if (mPowfularticles != null)
 		{
@@ -212,7 +237,7 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 		removeAllCrossParticle(vector);
 
 		mSnake.crossBlock(getTouchBlock());
-
+		mSnake.crossDenfog(getTouchDenseFog());
 		// 如果超时 ,给子类提示
 		if ((System.currentTimeMillis() - oldTime) > timeLimite)
 		{
@@ -291,6 +316,23 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 			for (Block block : mBlocks)
 			{
 				if (block.judgeIsInBlock(firstNode)) { return block; }
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 获取迷雾碰撞点
+	 * 
+	 * @return Block
+	 */
+	private DenseFog getTouchDenseFog()
+	{
+		if (mDenfogs != null)
+		{
+			for (DenseFog denseFog : mDenfogs)
+			{
+				if (denseFog.judgeIsInDenseFog(firstNode)) { return denseFog; }
 			}
 		}
 		return null;

@@ -6,6 +6,8 @@ package com.imooc.block;
  * @author Administrator
  *
  */
-public interface ICrossDenfogListener {
+public interface ICrossDenfogListener
+{
+
 	void denfogHandle(DenseFog denseFog, int color);
 }

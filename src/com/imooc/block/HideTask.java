@@ -6,6 +6,7 @@ package com.imooc.block;
  * @author Administrator
  *
  */
-public abstract class HideTask {
+public abstract class HideTask
+{
 
 }

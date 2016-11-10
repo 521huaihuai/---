@@ -1,5 +1,7 @@
 package com.imooc.block;
 
-public interface ICrossHidePosListener {
+public interface ICrossHidePosListener
+{
+
 	void crossHidePos(HideTask hideTask);
 }

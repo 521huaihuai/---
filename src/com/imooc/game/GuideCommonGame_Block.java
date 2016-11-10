@@ -1,6 +1,9 @@
 package com.imooc.game;
 
+import java.util.Vector;
+
 import com.imooc.block.Block;
+import com.imooc.block.DenseFog;
 import com.imooc.particle.PieceParticle;
 import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
@@ -155,6 +158,17 @@ public abstract class GuideCommonGame_Block extends CommonGame2
 
 	@Override
 	public Snake getSnake()
+	{
+		return null;
+	}
+
+	@Override
+	public void denfogHandle(DenseFog denseFog, int color)
+	{
+	}
+
+	@Override
+	public Vector<Block> getBlock()
 	{
 		return null;
 	}
