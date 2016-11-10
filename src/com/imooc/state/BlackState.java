@@ -19,19 +19,25 @@ import android.util.Log;
  * @author Administrator
  *
  */
-public class BlackState implements State {
+public class BlackState implements State
+{
+
 	private ICrossParticleListener mCrossListener;
 	private ICrossBlockListener mCrossBlockListener;
 	private ICrossHidePosListener mCrossHidePosListener;
 
+
 	@Override
-	public void handle_01() {
+	public void handle_01()
+	{
 
 	}
 
 	@Override
-	public void handle_02(Vector<PieceParticle> vector) {
-		for (PieceParticle particle : vector) {
+	public void handle_02(Vector<PieceParticle> vector)
+	{
+		for (PieceParticle particle : vector)
+		{
 			if (particle.getColor() == MyConstant.COLOR_BLACK)
 			{
 				Log.e("521huaihuai", "sameColorCrossHandle");
@@ -70,13 +76,15 @@ public class BlackState implements State {
 	}
 
 	@Override
-	public void handle_03(DenseFog denseFog) {
+	public void handle_03(DenseFog denseFog)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handle_04(Block block) {
+	public void handle_04(Block block)
+	{
 		if (block.getColor() == MyConstant.COLOR_BLACK)
 		{
 			Log.e("521huaihuai", "sameColorCrossHandle");
@@ -113,26 +121,63 @@ public class BlackState implements State {
 	}
 
 	@Override
-	public void handle_05(HideTask hTask) {
-		// TODO Auto-generated method stub
-
+	public void handle_05(HideTask hTask)
+	{
+		if (hTask.getColor() == MyConstant.COLOR_BLACK)
+		{
+			Log.e("521huaihuai", "sameColorCrossHandle");
+			// 如果是同色
+			if (mCrossHidePosListener != null)
+			{
+				mCrossHidePosListener.onSameColorCrossHideTask(hTask, MyConstant.COLOR_BLACK);
+			}
+		}
+		else if (hTask.getColor() == MyConstant.COLOR_GREEN)
+		{
+			Log.e("521huaihuai", "oppositeColorCrossHandle");
+			// 如果是
+			if (mCrossHidePosListener != null)
+			{
+				mCrossHidePosListener.onOppositeColorCrossHideTask(hTask, MyConstant.COLOR_GREEN);
+			}
+		}
+		else if (hTask.getColor() == MyConstant.COLOR_GOLD)
+		{
+			Log.e("521huaihuai", "birthColorCrosshandle");
+			if (mCrossHidePosListener != null)
+			{
+				mCrossHidePosListener.onDifferentColorCrossHideTask(hTask, hTask.getColor());
+			}
+		}
+		else
+		{
+			if (mCrossHidePosListener != null)
+			{
+				mCrossHidePosListener.onBirthColorCrossHideTask(hTask, hTask.getColor());
+			}
+		}
 	}
 
 	@Override
-	public void setOnCrossListener(ICrossParticleListener mCrossListener) {
+	public void setOnCrossListener(ICrossParticleListener mCrossListener)
+	{
 		this.mCrossListener = mCrossListener;
 	}
 
 	@Override
-	public void setOnCrossBlockListener(ICrossBlockListener mCrossBlockListener) {
-		if (mCrossBlockListener != null) {
+	public void setOnCrossBlockListener(ICrossBlockListener mCrossBlockListener)
+	{
+		if (mCrossBlockListener != null)
+		{
 			this.mCrossBlockListener = mCrossBlockListener;
 		}
 	}
 
 	@Override
-	public void setOnCrossHidePosListener(ICrossHidePosListener mCrossHidePosListener) {
-		if (mCrossHidePosListener != null) {
+	public void setOnCrossHidePosListener(ICrossHidePosListener mCrossHidePosListener)
+	{
+		if (mCrossHidePosListener != null)
+		{
 			this.mCrossHidePosListener = mCrossHidePosListener;
 		}
 	}

@@ -9,4 +9,10 @@ package com.imooc.block;
 public abstract class HideTask
 {
 
+	public int getColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
