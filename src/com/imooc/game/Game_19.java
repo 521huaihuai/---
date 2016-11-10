@@ -6,7 +6,6 @@ import java.util.Vector;
 import com.imooc.control.IMoveListener;
 import com.imooc.myConstant.MyConstant;
 import com.imooc.mySufaceView.MainActivity;
-import com.imooc.particle.Particle;
 import com.imooc.particle.PieceParticle;
 import com.imooc.snake.Node;
 import com.imooc.snake.Snake;

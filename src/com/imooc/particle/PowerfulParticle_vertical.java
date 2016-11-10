@@ -3,8 +3,8 @@ package com.imooc.particle;
 import java.util.LinkedList;
 
 import com.imooc.myConstant.MyConstant;
-import com.imooc.myConstant.Pos;
 import com.imooc.mySufaceView.MainActivity;
+import com.imooc.mySufaceView.Pos;
 import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 

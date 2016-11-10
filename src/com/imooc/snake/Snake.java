@@ -24,7 +24,8 @@ import com.imooc.state.State;
 
 import android.graphics.Color;
 
-public abstract class Snake {
+public abstract class Snake
+{
 
 	// 速度
 	private float speed = MyConstant.SPEED;
@@ -47,26 +48,32 @@ public abstract class Snake {
 	// 穿过粒子的回调接口
 	private ICrossParticleListener mCrossParticleListener;
 
-	public void setOnCrossParticleListener(ICrossParticleListener mCrossParticleListener) {
+
+	public void setOnCrossParticleListener(ICrossParticleListener mCrossParticleListener)
+	{
 		this.mCrossParticleListener = mCrossParticleListener;
 	}
 
-	public void setOnCrossDenfogListener(ICrossDenfogListener mDenfogListener) {
+	public void setOnCrossDenfogListener(ICrossDenfogListener mDenfogListener)
+	{
 		this.mDenfogListener = mDenfogListener;
 	}
 
-	public void setOnCrossBlockListener(ICrossBlockListener blockListener) {
+	public void setOnCrossBlockListener(ICrossBlockListener blockListener)
+	{
 		this.blockListener = blockListener;
 	}
 
-	public void setOnCrossHidePosListener(ICrossHidePosListener mHidePosListener) {
+	public void setOnCrossHidePosListener(ICrossHidePosListener mHidePosListener)
+	{
 		this.mHidePosListener = mHidePosListener;
 	}
 
 	/**
 	 * 初始化蛇
 	 */
-	public Snake() {
+	public Snake()
+	{
 		mList = new LinkedList<Node>();
 		initBody(mList);
 		hp = getInitHp();
@@ -79,8 +86,10 @@ public abstract class Snake {
 	 * @param xm
 	 * @param ym
 	 */
-	public void moveSnake(float xm, float ym) {
-		if (mList.size() > 0) {
+	public void moveSnake(float xm, float ym)
+	{
+		if (mList.size() > 0)
+		{
 			Node pos = mList.get(0);
 			Move move = Control.move(xm, ym, speed);
 			int x = (int) (pos.getX() + move.getX());
@@ -93,7 +102,8 @@ public abstract class Snake {
 	/**
 	 * 蛇拥有的能力
 	 */
-	public void fire() {
+	public void fire()
+	{
 		setCurrentState();
 		mState.handle_01();
 	}
@@ -101,12 +111,15 @@ public abstract class Snake {
 	/**
 	 * 蛇穿过粒子时所产生的结果, 具体处理方法交给game的监听者处理
 	 */
-	public void crossParticle(Vector<PieceParticle> vector) {
+	public void crossParticle(Vector<PieceParticle> vector)
+	{
 		setCurrentState();
-		if (mCrossParticleListener != null) {
+		if (mCrossParticleListener != null)
+		{
 			mState.setOnCrossListener(mCrossParticleListener);
 		}
-		if (vector != null) {
+		if (vector != null)
+		{
 			mState.handle_02(vector);
 		}
 	}
@@ -114,8 +127,10 @@ public abstract class Snake {
 	/**
 	 * 蛇穿过迷雾时所产生的结果, 具体处理方法交给game的监听者处理
 	 */
-	public void crossDenfog(DenseFog denseFog) {
-		if (mDenfogListener != null) {
+	public void crossDenfog(DenseFog denseFog)
+	{
+		if (mDenfogListener != null)
+		{
 			mDenfogListener.denfogHandle(denseFog, mList.getFirst().getColor());
 		}
 	}
@@ -123,12 +138,15 @@ public abstract class Snake {
 	/**
 	 * 蛇穿过障碍时所产生的结果, 具体处理方法交给game的监听者处理
 	 */
-	public void crossBlock(Block block) {
+	public void crossBlock(Block block)
+	{
 		setCurrentState();
-		if (blockListener != null) {
+		if (blockListener != null)
+		{
 			mState.setOnCrossBlockListener(blockListener);
 		}
-		if (block != null) {
+		if (block != null)
+		{
 			mState.handle_04(block);
 		}
 	}
@@ -136,12 +154,15 @@ public abstract class Snake {
 	/**
 	 * 蛇穿过隐藏任务时所产生的结果, 具体处理方法交给game的监听者处理
 	 */
-	public void crossHidePos(HideTask task) {
+	public void crossHidePos(HideTask task)
+	{
 		setCurrentState();
-		if (mHidePosListener != null) {
+		if (mHidePosListener != null)
+		{
 			mState.setOnCrossHidePosListener(mHidePosListener);
 		}
-		if (task != null) {
+		if (task != null)
+		{
 			mState.handle_05(task);
 		}
 	}
@@ -149,30 +170,36 @@ public abstract class Snake {
 	/**
 	 * 设置当前的状态
 	 */
-	private void setCurrentState() {
-		if (mList.size() > 0) {
+	private void setCurrentState()
+	{
+		if (mList.size() > 0)
+		{
 			int color = mList.getFirst().getColor();
-			if (color == MyConstant.COLOR_BLUE) {
+			if (color == MyConstant.COLOR_BLUE)
+			{
 				color = Color.BLUE;
 			}
-			switch (color) {
-			case MyConstant.COLOR_RED:
-				mState = new RedState();
-				break;
-			case MyConstant.COLOR_BLACK:
-				mState = new BlackState();
-				break;
-			case Color.BLUE:
-				mState = new BlueState();
-				break;
-			case MyConstant.COLOR_GREEN:
-				mState = new GreenState();
-				break;
-			default:
-				mState = new GoldState();
-				break;
+			switch (color)
+			{
+				case MyConstant.COLOR_RED:
+					mState = new RedState();
+					break;
+				case MyConstant.COLOR_BLACK:
+					mState = new BlackState();
+					break;
+				case Color.BLUE:
+					mState = new BlueState();
+					break;
+				case MyConstant.COLOR_GREEN:
+					mState = new GreenState();
+					break;
+				default:
+					mState = new GoldState();
+					break;
 			}
-		} else {
+		}
+		else
+		{
 			mState = new RedState();
 		}
 	}
@@ -187,37 +214,50 @@ public abstract class Snake {
 	 */
 	public abstract int getInitHp();
 
-	public static class Factory {
-		public static Snake createSnake(final int hp, final Node... nodes) {
-			Snake snake = new Snake() {
+
+	public static class Factory
+	{
+
+		public static Snake createSnake(final int hp, final Node... nodes)
+		{
+			Snake snake = new Snake()
+			{
 
 				@Override
-				public void initBody(LinkedList<Node> mLinkedList) {
-					for (Node node : nodes) {
+				public void initBody(LinkedList<Node> mLinkedList)
+				{
+					for (Node node : nodes)
+					{
 						mLinkedList.add(node);
 					}
 				}
 
 				@Override
-				public int getInitHp() {
+				public int getInitHp()
+				{
 					return hp;
 				}
 			};
 			return snake;
 		}
 
-		public static Snake createSnake(final int hp, final int x, final int y, final int color, final int length) {
-			Snake snake = new Snake() {
+		public static Snake createSnake(final int hp, final int x, final int y, final int color, final int length)
+		{
+			Snake snake = new Snake()
+			{
 
 				@Override
-				public void initBody(LinkedList<Node> mLinkedList) {
-					for (int i = 0; i < length; i++) {
+				public void initBody(LinkedList<Node> mLinkedList)
+				{
+					for (int i = 0; i < length; i++)
+					{
 						mLinkedList.add(new Node(color, x, y));
 					}
 				}
 
 				@Override
-				public int getInitHp() {
+				public int getInitHp()
+				{
 					return hp;
 				}
 			};
@@ -230,64 +270,81 @@ public abstract class Snake {
 		 * @param list
 		 * @param color
 		 */
-		public static void createPeerNode(LinkedList<Node> list, int color) {
-			for (int i = 0; i < 4; i++) {
+		public static void createPeerNode(LinkedList<Node> list, int color)
+		{
+			for (int i = 0; i < 4; i++)
+			{
 				list.add(new Node(color, MainActivity.screenWidth / 2, MainActivity.screenHeight / 2));
 			}
 		}
 	}
 
-	public int getColor() {
+
+	public int getColor()
+	{
 		return mList.getFirst().getColor();
 	}
 
-	public int getLengthCount() {
+	public int getLengthCount()
+	{
 		return mList.size();
 	}
 
-	public float getSpeed() {
+	public float getSpeed()
+	{
 		return speed;
 	}
 
-	public float getRadius() {
+	public float getRadius()
+	{
 		return radius;
 	}
 
-	public LinkedList<Node> getList() {
+	public LinkedList<Node> getList()
+	{
 		return mList;
 	}
 
-	public void setSnakeColor(int color) {
-		for (Node node : mList) {
+	public void setSnakeColor(int color)
+	{
+		for (Node node : mList)
+		{
 			node.setColor(color);
 		}
 	}
 
-	public void setSpeed(int speed) {
+	public void setSpeed(int speed)
+	{
 		this.speed = speed;
 	}
 
-	public void setRadius(float radius) {
+	public void setRadius(float radius)
+	{
 		mList.getFirst().setRadius(radius);
 	}
 
-	public void setLinkedList(LinkedList<Node> mLinkedList) {
+	public void setLinkedList(LinkedList<Node> mLinkedList)
+	{
 		this.mList = mLinkedList;
 	}
 
-	public int getCollectionNum() {
+	public int getCollectionNum()
+	{
 		return collectionNum;
 	}
 
-	public void setHp(int hp) {
+	public void setHp(int hp)
+	{
 		this.hp = hp;
 	}
 
-	public int getCurrentHp() {
+	public int getCurrentHp()
+	{
 		return hp;
 	}
 
-	public void setCollectionNum(int collectionNum) {
+	public void setCollectionNum(int collectionNum)
+	{
 		this.collectionNum = collectionNum;
 	}
 }

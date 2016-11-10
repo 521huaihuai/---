@@ -6,6 +6,6 @@ package com.imooc.block;
  * @author Administrator
  *
  */
-public class DenseFog {
+public abstract class DenseFog {
 
 }

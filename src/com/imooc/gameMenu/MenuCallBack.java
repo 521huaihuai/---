@@ -3,10 +3,10 @@ package com.imooc.gameMenu;
 import java.util.Vector;
 
 import com.imooc.myConstant.MyConstant;
-import com.imooc.myConstant.Pos;
 import com.imooc.mySufaceView.ISurfaceViewCallBack;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.MyAplication;
+import com.imooc.mySufaceView.Pos;
 import com.imooc.particle.PieceParticle;
 import com.imooc.utils.Utils;
 

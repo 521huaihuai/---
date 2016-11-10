@@ -1,4 +1,4 @@
-package com.imooc.myConstant;
+package com.imooc.mySufaceView;
 
 public class Pos {
 	private int x;

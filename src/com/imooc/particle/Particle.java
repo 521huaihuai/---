@@ -1,7 +1,7 @@
 package com.imooc.particle;
 
-import com.imooc.myConstant.Pos;
 import com.imooc.mySufaceView.MainActivity;
+import com.imooc.mySufaceView.Pos;
 import com.imooc.utils.Utils;
 
 /**

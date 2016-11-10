@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.imooc.myConstant.MyConstant;
-import com.imooc.myConstant.Pos;
+import com.imooc.mySufaceView.Pos;
 import com.imooc.snake.Node;
 import com.imooc.snake.Snake;
 

@@ -1,13 +1,15 @@
 package com.imooc.game;
 
+import com.imooc.block.Block;
 import com.imooc.particle.PieceParticle;
+import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public abstract class GuideCommonGame extends CommonGame
+public abstract class GuideCommonGame_Block extends CommonGame2
 {
 
 	protected float mAlpha = 255;
@@ -18,7 +20,7 @@ public abstract class GuideCommonGame extends CommonGame
 	private int length;
 
 
-	public GuideCommonGame()
+	public GuideCommonGame_Block()
 	{
 		text = getGuideString();
 		time = getGuideIndexTime();
@@ -120,4 +122,40 @@ public abstract class GuideCommonGame extends CommonGame
 	public abstract void detailDraw(Canvas canvas, Paint paint, int screenWidth, int screenHeight);
 
 	public abstract void detailLogic();
+
+	@Override
+	public void onSameColorCrossBlock(Block block, int color)
+	{
+		block.crossSafeBlock(color);
+	}
+
+	@Override
+	public void onOppositeColorCrossBlock(Block block, int color)
+	{
+		block.touchDengerousBlock(color);
+	}
+
+	@Override
+	public void onBirthColorCrossBlock(Block block, int color)
+	{
+		block.crossNiceBlock(color);
+	}
+
+	@Override
+	public void onDifferentColorCrossBlock(Block block, int color)
+	{
+		block.touchNormalBlock(color);
+	}
+
+	@Override
+	public int gameOverPos()
+	{
+		return 0;
+	}
+
+	@Override
+	public Snake getSnake()
+	{
+		return null;
+	}
 }

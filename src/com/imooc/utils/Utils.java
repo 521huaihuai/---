@@ -5,9 +5,9 @@ import java.util.Vector;
 import com.imooc.gameMenu.SimpleGameMenuFail;
 import com.imooc.gameMenu.SimpleGameMenuSuccess;
 import com.imooc.myConstant.MyConstant;
-import com.imooc.myConstant.Pos;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.MyAplication;
+import com.imooc.mySufaceView.Pos;
 import com.imooc.particle.PieceParticle;
 
 import android.content.Context;
@@ -17,6 +17,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 /**
  * 工具包
@@ -32,6 +33,19 @@ public class Utils
 		CEN, LEFT, RIGHT, CEN_UP, CEN_DOEN, UP_RIGHT, UP_LEFT, CEN_UP_UP
 	}
 
+	private static long currentTime;
+
+	
+	public static void setStartTime()
+	{
+		currentTime = System.currentTimeMillis();
+	}
+	public static void setEndTime(String Tag)
+	{
+		Log.e("Time", Tag + " Time = " + (System.currentTimeMillis() - currentTime));
+		currentTime = System.currentTimeMillis();
+	}
+	
 
 	/**
 	 * 绘制随时间隐藏的字体
