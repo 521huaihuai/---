@@ -1,4 +1,4 @@
-package com.imooc.game;
+package com.imooc.myBaseGame;
 
 import java.util.LinkedList;
 import java.util.Vector;
@@ -25,7 +25,7 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 
-public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticleListener, IPowerfulParticleListener, ICrossBlockListener, ICrossDenfogListener
+public abstract class CommonGame_40_60 implements ISurfaceViewCallBack, ICrossParticleListener, IPowerfulParticleListener, ICrossBlockListener, ICrossDenfogListener
 {
 
 	// Á£×Ó
@@ -65,7 +65,7 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 
 
 	// ³õÊ¼»¯
-	public CommonGame2()
+	public CommonGame_40_60()
 	{
 		mSnake = getSnake();
 		if (mSnake == null)
@@ -359,7 +359,7 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 			currentX = particle.getX();
 			currentY = particle.getY();
 			int distance = (int) Math.sqrt(Math.pow((cenX - currentX), 2) + Math.pow((cenY - currentY), 2));
-			if (distance < (firstNode.getRadius() + particle.getRadius()))
+			if (distance < (MyConstant.SNAKE_RADIUS + particle.getRadius()))
 			{
 				// Åö×²
 				vector.add(particle);
@@ -386,7 +386,7 @@ public abstract class CommonGame2 implements ISurfaceViewCallBack, ICrossParticl
 			currentX = iPowerfulParticle.getX();
 			currentY = iPowerfulParticle.getY();
 			int distance = (int) Math.sqrt(Math.pow((cenX - currentX), 2) + Math.pow((cenY - currentY), 2));
-			if (distance < (firstNode.getRadius() + iPowerfulParticle.getRadius()))
+			if (distance < (MyConstant.SNAKE_RADIUS + iPowerfulParticle.getRadius()))
 			{
 				// Åö×²
 				return iPowerfulParticle;

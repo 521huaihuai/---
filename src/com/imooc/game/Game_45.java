@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import com.imooc.control.Control;
 import com.imooc.control.Move;
+import com.imooc.myBaseGame.CommonGuideGame_20_40;
 import com.imooc.myConstant.MyConstant;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.particle.PieceParticle;
@@ -19,7 +20,7 @@ import com.imooc.snake.Snake;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class Game_22 extends GuideCommonGame
+public class Game_45 extends CommonGuideGame_20_40
 {
 
 	@Override
@@ -108,7 +109,7 @@ public class Game_22 extends GuideCommonGame
 					Move move = Control.move(xm, ym, getSpeed());
 					int x = (int) (pos.getX() + move.getX());
 					int y = (int) (pos.getY() + move.getY());
-					mList.addFirst(new Node(pos.getColor(), x, y, pos.getRadius()));
+					mList.addFirst(new Node(pos.getColor(), x, y, MyConstant.SNAKE_RADIUS));
 
 					int size = mList.size();
 					for (int i = 1; i < size - 1; i++)

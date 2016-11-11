@@ -2,6 +2,7 @@ package com.imooc.game;
 
 import java.util.LinkedList;
 
+import com.imooc.myBaseGame.CommonGuideGame_00_20;
 import com.imooc.myConstant.MyConstant;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.snake.Node;
@@ -11,14 +12,14 @@ import com.imooc.utils.Utils;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class Game_13 extends GuideCommonGame   {
+public class Game_13 extends CommonGuideGame_00_20   {
 
 	public Game_13() {
 	}
 
 	@Override
 	public String[] getGuideString() {
-		String[] text = { "在20秒内收集15个" };
+		String[] text = { "在20秒内收集20个" };
 		return text;
 	}
 
@@ -33,7 +34,7 @@ public class Game_13 extends GuideCommonGame   {
 
 	@Override
 	public void detailLogic() {
-		if (mCollectionNUM == 15) {
+		if (mCollectionNUM == 20) {
 			Utils.enterNextCheckPoint("下一关", "在60秒内收集不同于自身颜色的斑点20个");
 		}
 	}
@@ -78,23 +79,4 @@ public class Game_13 extends GuideCommonGame   {
 		};
 	}
 
-	@Override
-	public void sameColorCrossHandle(int color) {
-		mCollectionNUM++;
-	}
-
-	@Override
-	public void oppositeColorCrossHandle(int color) {
-		mSnake.setHp(mSnake.getCurrentHp() - 5);
-	}
-
-	@Override
-	public void birthColorCrosshandle(int color) {
-		mCollectionNUM++;
-	}
-
-	@Override
-	public void differentColorCrossHandle(int color) {
-		mCollectionNUM++;
-	}
 }

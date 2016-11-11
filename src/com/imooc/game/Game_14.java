@@ -2,6 +2,7 @@ package com.imooc.game;
 
 import java.util.LinkedList;
 
+import com.imooc.myBaseGame.CommonGuideGame_00_20;
 import com.imooc.myConstant.MyConstant;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.snake.Node;
@@ -11,7 +12,7 @@ import com.imooc.utils.Utils;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class Game_14 extends GuideCommonGame   {
+public class Game_14 extends CommonGuideGame_00_20   {
 
 	public Game_14() {
 	}
@@ -55,7 +56,7 @@ public class Game_14 extends GuideCommonGame   {
 
 	@Override
 	public void timeIsOver(long usedTime) {
-		Utils.reStartCheckPoint("失败", "超时了!", "请在60秒内完成哦!");
+		Utils.reStartCheckPoint("失败", "超时了!", "请在60秒内完成!");
 	}
 
 	@Override
@@ -82,21 +83,6 @@ public class Game_14 extends GuideCommonGame   {
 
 	@Override
 	public void sameColorCrossHandle(int color) {
-	}
-
-	@Override
-	public void oppositeColorCrossHandle(int color) {
-		mSnake.setHp(mSnake.getCurrentHp() - 5);
-	}
-
-	@Override
-	public void birthColorCrosshandle(int color) {
-		mCollectionNUM++;
-	}
-
-	@Override
-	public void differentColorCrossHandle(int color) {
-		mCollectionNUM++;
 	}
 
 }

@@ -80,8 +80,16 @@ public class Utils
 	public static void drawText(Position position, Canvas canvas, String text, int textSize, Paint paint)
 	{
 		int length = text.length();
+		int realLength = length;
+		for (int i = 0; i < length; i++)
+		{
+			if (!isChineseByBlock(text.charAt(i)))
+			{
+				realLength --;
+			}
+		}
 		int size = textSize;
-		int width = length * size;
+		int width = realLength * size;
 		paint.setTextSize(textSize);
 		switch (position)
 		{
@@ -129,8 +137,16 @@ public class Utils
 		for (int i = 0; i < messages.length; i++)
 		{
 			int length = messages[i].length();
-			int width = length * size;
-			canvas.drawText(messages[i], MainActivity.screenWidth / 2 - width / 2, MainActivity.screenHeight / 3.5f + (1 + 0.15f) * size * i, paint);
+			int realLength = length;
+			for (int j = 0; j < length; j++)
+			{
+				if (!isChineseByBlock(messages[i].charAt(j)))
+				{
+					realLength --;
+				}
+			}
+			int width = realLength * size;
+			canvas.drawText(messages[i], MainActivity.screenWidth / 2 - width / 2, MainActivity.screenHeight / 3.5f + (1 + 0.35f) * size * i, paint);
 		}
 		paint.setTextSize(MyAplication.getTextSize());
 	}
@@ -148,7 +164,7 @@ public class Utils
 	 */
 	public static float alphaDecreaseInNearBytime(int time)
 	{
-		return 6.4f * 1.0f / time;
+		return (255 * MyConstant.SLEEPTIME) * 1.0f / (1000 * time);
 	}
 
 	/**
@@ -362,4 +378,20 @@ public class Utils
 		}
 	}
 
+	
+	 //使用UnicodeBlock方法判断
+    public static boolean isChineseByBlock(char c) {
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

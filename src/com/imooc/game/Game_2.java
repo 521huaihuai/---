@@ -1,8 +1,8 @@
 package com.imooc.game;
 
 import com.imooc.gameMenu.SimpleGameMenuSuccess;
+import com.imooc.myBaseGame.CommonGame_00_20;
 import com.imooc.mySufaceView.MyAplication;
-import com.imooc.particle.PieceParticle;
 import com.imooc.snake.RedSnake;
 import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
@@ -11,7 +11,7 @@ import com.imooc.utils.Utils.Position;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class Game_2 extends CommonGame{
+public class Game_2 extends CommonGame_00_20{
 
 	private float alpha = 255;
 	private float decreaseAlpha;
@@ -52,7 +52,7 @@ public class Game_2 extends CommonGame{
 	@Override
 	public void childLogic() {
 		if (mCollectionNUM == 20) {
-			MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuSuccess("很好, 你成功的收集了20个斑点~", ""));
+			MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuSuccess("你成功的收集了20个斑点", "很简单?没难度?嘿嘿!"));
 		}
 		if (alpha > 0) {
 			alpha -= decreaseAlpha;
@@ -85,12 +85,6 @@ public class Game_2 extends CommonGame{
 
 	@Override
 	public void timeIsOver(long usedTime) {
-	}
-
-	@Override
-	public void onRemoveParticleCallBack(PieceParticle particle) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

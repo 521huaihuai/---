@@ -77,7 +77,7 @@ public abstract class Snake
 		mList = new LinkedList<Node>();
 		initBody(mList);
 		hp = getInitHp();
-		radius = mList.getFirst().getRadius();
+		radius = MyConstant.SNAKE_RADIUS;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public abstract class Snake
 			Move move = Control.move(xm, ym, speed);
 			int x = (int) (pos.getX() + move.getX());
 			int y = (int) (pos.getY() + move.getY());
-			mList.addFirst(new Node(pos.getColor(), x, y, pos.getRadius()));
+			mList.addFirst(new Node(pos.getColor(), x, y, radius));
 			mList.removeLast();
 		}
 	}
@@ -272,9 +272,31 @@ public abstract class Snake
 		 */
 		public static void createPeerNode(LinkedList<Node> list, int color)
 		{
-			for (int i = 0; i < 4; i++)
+			createPeerNode(list, color, 4);
+		}
+
+		/**
+		 * 创建n节点长度蛇
+		 * 
+		 * @param list
+		 * @param color
+		 */
+		public static void createPeerNode(LinkedList<Node> list, int color, int length)
+		{
+			createPeerNode(list, MainActivity.screenWidth / 2, MainActivity.screenHeight / 2, color, length);
+		}
+
+		/**
+		 * 创建n节点长度蛇
+		 * 
+		 * @param list
+		 * @param color
+		 */
+		public static void createPeerNode(LinkedList<Node> list, int x, int y, int color, int length)
+		{
+			for (int i = 0; i < length; i++)
 			{
-				list.add(new Node(color, MainActivity.screenWidth / 2, MainActivity.screenHeight / 2));
+				list.add(new Node(color, x, y));
 			}
 		}
 	}
@@ -316,11 +338,6 @@ public abstract class Snake
 	public void setSpeed(int speed)
 	{
 		this.speed = speed;
-	}
-
-	public void setRadius(float radius)
-	{
-		mList.getFirst().setRadius(radius);
 	}
 
 	public void setLinkedList(LinkedList<Node> mLinkedList)

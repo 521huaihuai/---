@@ -1,18 +1,12 @@
-package com.imooc.game;
+package com.imooc.myBaseGame;
 
-import java.util.Vector;
-
-import com.imooc.block.Block;
-import com.imooc.block.DenseFog;
-import com.imooc.particle.PieceParticle;
-import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public abstract class GuideCommonGame_Block extends CommonGame2
+public abstract class CommonGuideGame_20_40 extends CommonGame_21_40
 {
 
 	protected float mAlpha = 255;
@@ -23,7 +17,7 @@ public abstract class GuideCommonGame_Block extends CommonGame2
 	private int length;
 
 
-	public GuideCommonGame_Block()
+	public CommonGuideGame_20_40()
 	{
 		text = getGuideString();
 		time = getGuideIndexTime();
@@ -49,15 +43,9 @@ public abstract class GuideCommonGame_Block extends CommonGame2
 		if (text != null)
 		{
 			paint.setColor(mSnake.getColor());
-			Utils.drawAlphaText(Position.CEN, canvas, text[currentIndex], paint, mAlpha);
+			Utils.drawAlphaText(Position.CEN_UP, canvas, text[currentIndex], paint, mAlpha);
 		}
 		detailDraw(canvas, paint, screenWidth, screenHeight);
-	}
-
-	@Override
-	public void onRemoveParticleCallBack(PieceParticle particle)
-	{
-
 	}
 
 	@Override
@@ -80,6 +68,7 @@ public abstract class GuideCommonGame_Block extends CommonGame2
 	public void oppositeColorCrossHandle(int color)
 	{
 		mSnake.setHp(mSnake.getCurrentHp() - 5);
+		mCollectionNUM++;
 	}
 
 	@Override
@@ -125,51 +114,4 @@ public abstract class GuideCommonGame_Block extends CommonGame2
 	public abstract void detailDraw(Canvas canvas, Paint paint, int screenWidth, int screenHeight);
 
 	public abstract void detailLogic();
-
-	@Override
-	public void onSameColorCrossBlock(Block block, int color)
-	{
-		block.crossSafeBlock(color);
-	}
-
-	@Override
-	public void onOppositeColorCrossBlock(Block block, int color)
-	{
-		block.touchDengerousBlock(color);
-	}
-
-	@Override
-	public void onBirthColorCrossBlock(Block block, int color)
-	{
-		block.crossNiceBlock(color);
-	}
-
-	@Override
-	public void onDifferentColorCrossBlock(Block block, int color)
-	{
-		block.touchNormalBlock(color);
-	}
-
-	@Override
-	public int gameOverPos()
-	{
-		return 0;
-	}
-
-	@Override
-	public Snake getSnake()
-	{
-		return null;
-	}
-
-	@Override
-	public void denfogHandle(DenseFog denseFog, int color)
-	{
-	}
-
-	@Override
-	public Vector<Block> getBlock()
-	{
-		return null;
-	}
 }

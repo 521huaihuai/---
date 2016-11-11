@@ -1,4 +1,4 @@
-package com.imooc.game;
+package com.imooc.myBaseGame;
 
 import java.util.LinkedList;
 import java.util.Vector;
@@ -8,7 +8,6 @@ import com.imooc.control.IMoveListener;
 import com.imooc.myConstant.MyConstant;
 import com.imooc.mySufaceView.ISurfaceViewCallBack;
 import com.imooc.mySufaceView.MainActivity;
-import com.imooc.particle.IPowerfulParticleListener;
 import com.imooc.particle.PieceParticle;
 import com.imooc.particle.PowerfulParticleAbstract;
 import com.imooc.snake.Node;
@@ -20,13 +19,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
-public abstract class CommonGame implements ISurfaceViewCallBack, ICrossParticleListener, IPowerfulParticleListener
+public abstract class CommonGame_00_20 implements ISurfaceViewCallBack, ICrossParticleListener
 {
 
 	// 粒子
 	private Vector<PieceParticle> mVector;
-	// 技能粒子
-	protected Vector<PowerfulParticleAbstract> mPowfularticles;
 	// 蛇
 	protected Snake mSnake;
 	// 收集限制
@@ -48,15 +45,10 @@ public abstract class CommonGame implements ISurfaceViewCallBack, ICrossParticle
 
 	// 移动监听回调
 	private IMoveListener moveListener;
-	private int powParticleIndex = 0;
-	private boolean isReadyRelerasePow;
-
-	// 可以释放的技能
-	private PowerfulParticleAbstract powerfulParticle;
 
 
 	// 初始化
-	public CommonGame()
+	public CommonGame_00_20()
 	{
 		mSnake = getSnake();
 		if (mSnake == null)
@@ -73,14 +65,6 @@ public abstract class CommonGame implements ISurfaceViewCallBack, ICrossParticle
 		}
 		oldTime = System.currentTimeMillis();
 		mVector = createPartice();
-		mPowfularticles = createPowfulPartice();
-		if (mPowfularticles != null)
-		{
-			for (PowerfulParticleAbstract pAbstract : mPowfularticles)
-			{
-				pAbstract.setOnPowerfulParticleListener(this);
-			}
-		}
 		MainActivity.currentRelevant = gameOverPos();
 		mSnake.setOnCrossParticleListener(this);
 	}
@@ -151,35 +135,6 @@ public abstract class CommonGame implements ISurfaceViewCallBack, ICrossParticle
 		{
 			paint.setColor(particle.getColor());
 			canvas.drawCircle(particle.getX(), particle.getY(), particle.getRadius(), paint);
-		}
-
-		// 绘制技能粒子
-		if (mPowfularticles != null)
-		{
-			for (PowerfulParticleAbstract powerfulParticle : mPowfularticles)
-			{
-				powerfulParticle.drawPowerfulParticle(canvas, paint);
-			}
-			// 检测当前第一个节点是否有任何技能获得
-			// 如果有任何的技能获取,进行标志
-			if (getAllPowerfulParticle(mPowfularticles) != null)
-			{
-				powerfulParticle = getAllPowerfulParticle(mPowfularticles);
-				isReadyRelerasePow = true;
-				powParticleIndex = 0;
-			}
-			// 移除穿过技能粒子
-			removeCrossPowerfulParticle(powerfulParticle);
-		}
-		// 如果技能准备完毕就释放
-		if (isReadyRelerasePow)
-		{
-			if (powParticleIndex >= (PowerfulParticleAbstract.effectTime * 1000 / MyConstant.SLEEPTIME))
-			{
-				isReadyRelerasePow = false;
-			}
-			powParticleIndex++;
-			mVector = powerfulParticle.releaseEffectParticle(mVector, mSnake, canvas, paint, powParticleIndex);
 		}
 	}
 
@@ -283,7 +238,7 @@ public abstract class CommonGame implements ISurfaceViewCallBack, ICrossParticle
 			currentX = particle.getX();
 			currentY = particle.getY();
 			int distance = (int) Math.sqrt(Math.pow((cenX - currentX), 2) + Math.pow((cenY - currentY), 2));
-			if (distance < (mList.getFirst().getRadius() + particle.getRadius()))
+			if (distance < (MyConstant.SNAKE_RADIUS + particle.getRadius()))
 			{
 				// 碰撞
 				vector.add(particle);
@@ -292,32 +247,6 @@ public abstract class CommonGame implements ISurfaceViewCallBack, ICrossParticle
 		return vector;
 	}
 
-	/**
-	 * 判定是否获取技能
-	 * 
-	 * @param mPowfularticles2
-	 * @return
-	 */
-	private PowerfulParticleAbstract getAllPowerfulParticle(Vector<PowerfulParticleAbstract> mPowfularticles2)
-	{
-		if (mPowfularticles2 == null) { return null; }
-		int cenX = mList.getFirst().getX();
-		int cenY = mList.getFirst().getY();
-		int currentX;
-		int currentY;
-		for (PowerfulParticleAbstract iPowerfulParticle : mPowfularticles2)
-		{
-			currentX = iPowerfulParticle.getX();
-			currentY = iPowerfulParticle.getY();
-			int distance = (int) Math.sqrt(Math.pow((cenX - currentX), 2) + Math.pow((cenY - currentY), 2));
-			if (distance < (mList.getFirst().getRadius() + iPowerfulParticle.getRadius()))
-			{
-				// 碰撞
-				return iPowerfulParticle;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * 移除所有穿过点
@@ -330,18 +259,6 @@ public abstract class CommonGame implements ISurfaceViewCallBack, ICrossParticle
 		}
 	}
 
-	/**
-	 * 移除穿过的技能点
-	 * 
-	 * @param powerfulParticle
-	 */
-	private void removeCrossPowerfulParticle(PowerfulParticleAbstract powerfulParticle)
-	{
-		if (mPowfularticles != null)
-		{
-			mPowfularticles.remove(powerfulParticle);
-		}
-	}
 
 	/**
 	 * 获取粒子

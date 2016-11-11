@@ -2,6 +2,7 @@ package com.imooc.game;
 
 import java.util.LinkedList;
 
+import com.imooc.myBaseGame.CommonGuideGame_00_20;
 import com.imooc.myConstant.MyConstant;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.snake.Node;
@@ -11,7 +12,7 @@ import com.imooc.utils.Utils;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class Game_12 extends GuideCommonGame{
+public class Game_12 extends CommonGuideGame_00_20{
 
 	public Game_12() {
 	}
@@ -34,7 +35,7 @@ public class Game_12 extends GuideCommonGame{
 	@Override
 	public void detailLogic() {
 		if (mCollectionNUM == 15) {
-			Utils.enterNextCheckPoint("下一关", "在20秒内收集斑点15个");
+			Utils.enterNextCheckPoint("下一关", "在20秒内收集斑点20个");
 		}
 	}
 

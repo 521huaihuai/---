@@ -2,6 +2,7 @@ package com.imooc.game;
 
 import java.util.List;
 
+import com.imooc.myBaseGame.CommonGame_21_40;
 import com.imooc.particle.PieceParticle;
 import com.imooc.snake.Node;
 import com.imooc.snake.RedSnake;
@@ -11,7 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
-public class Game_27 extends CommonGame{
+public class Game_27 extends CommonGame_21_40{
 
 	private Snake mSnake;
 

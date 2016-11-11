@@ -11,7 +11,7 @@ public class MyConstant {
 	public static final int COLOR_BLACK = Color.BLACK;
 	public static final int[] COLORS = new int[] { COLOR_RED, COLOR_GOLD, COLOR_GREEN, COLOR_BLUE, COLOR_BLACK };
 	public static final float SPEED = 9.0f;
-	public static final float SNAKE_RADIUS = 22.0f;
+	public static final float SNAKE_RADIUS = 21.0f;
 	public static final int SLEEPTIME = 25;
 	public static final int PARTICLE_RADIUS = 5;
 	public static final int POWERFULPARTICLE_RADIUS = 30;

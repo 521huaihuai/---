@@ -1,13 +1,12 @@
-package com.imooc.game;
+package com.imooc.myBaseGame;
 
-import com.imooc.particle.PieceParticle;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public abstract class GuideCommonGame extends CommonGame
+public abstract class CommonGuideGame_00_20 extends CommonGame_00_20
 {
 
 	protected float mAlpha = 255;
@@ -18,7 +17,7 @@ public abstract class GuideCommonGame extends CommonGame
 	private int length;
 
 
-	public GuideCommonGame()
+	public CommonGuideGame_00_20()
 	{
 		text = getGuideString();
 		time = getGuideIndexTime();
@@ -44,15 +43,9 @@ public abstract class GuideCommonGame extends CommonGame
 		if (text != null)
 		{
 			paint.setColor(mSnake.getColor());
-			Utils.drawAlphaText(Position.CEN, canvas, text[currentIndex], paint, mAlpha);
+			Utils.drawAlphaText(Position.CEN_UP, canvas, text[currentIndex], paint, mAlpha);
 		}
 		detailDraw(canvas, paint, screenWidth, screenHeight);
-	}
-
-	@Override
-	public void onRemoveParticleCallBack(PieceParticle particle)
-	{
-
 	}
 
 	@Override
@@ -75,6 +68,7 @@ public abstract class GuideCommonGame extends CommonGame
 	public void oppositeColorCrossHandle(int color)
 	{
 		mSnake.setHp(mSnake.getCurrentHp() - 5);
+		mCollectionNUM++;
 	}
 
 	@Override

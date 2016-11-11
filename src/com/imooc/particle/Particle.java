@@ -111,7 +111,7 @@ public class Particle
 		// 如果越界
 		if (Utils.isOutOfBunds(mx, my))
 		{
-			if (mx < 0 || my > MainActivity.screenWidth)
+			if (mx < 0 || mx > MainActivity.screenWidth)
 			{
 				mDirection = (180 - mDirection);
 			}
