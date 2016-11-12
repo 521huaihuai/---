@@ -1,5 +1,8 @@
 package com.imooc.myBaseGame;
 
+import java.util.List;
+
+import com.imooc.snake.Node;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 
@@ -15,6 +18,8 @@ public abstract class CommonGuideGame_20_40 extends CommonGame_21_40
 	private int[] time;
 	protected int currentIndex = 0;
 	private int length;
+
+	protected int mColorChangeTimes;
 
 
 	public CommonGuideGame_20_40()
@@ -74,12 +79,24 @@ public abstract class CommonGuideGame_20_40 extends CommonGame_21_40
 	@Override
 	public void birthColorCrosshandle(int color)
 	{
+		List<Node> mList = mSnake.getList();
+		for (Node node : mList)
+		{
+			node.setColor(color);
+		}
+		mColorChangeTimes++;
 		mCollectionNUM++;
 	}
 
 	@Override
 	public void differentColorCrossHandle(int color)
 	{
+		List<Node> mList = mSnake.getList();
+		for (Node node : mList)
+		{
+			node.setColor(color);
+		}
+		mColorChangeTimes++;
 		mCollectionNUM++;
 	}
 

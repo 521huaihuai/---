@@ -24,7 +24,7 @@ public abstract class CommonGame_21_40 implements ISurfaceViewCallBack, ICrossPa
 {
 
 	// 粒子
-	private Vector<PieceParticle> mVector;
+	protected Vector<PieceParticle> mVector;
 	// 技能粒子
 	protected Vector<PowerfulParticleAbstract> mPowfularticles;
 	// 蛇
@@ -42,9 +42,13 @@ public abstract class CommonGame_21_40 implements ISurfaceViewCallBack, ICrossPa
 	// 时间限制
 	protected long timeLimite;
 	// 用于计时
-	private long oldTime = 0;
+	protected long oldTime = 0;
+	// 当前用时
+	protected long mCurrentUsedTime;
+
 	// 蛇半径
 	private float radius;
+	private Node node = null;
 
 	// 移动监听回调
 	private IMoveListener moveListener;
@@ -129,14 +133,17 @@ public abstract class CommonGame_21_40 implements ISurfaceViewCallBack, ICrossPa
 	public void draw(Canvas canvas, Paint paint, int screenWidth, int screenHeight)
 	{
 		// 绘制蛇 (为每节设置颜色)// 绘制大概2-3ms
-		for (Node node : mList)
+		int size = mList.size();
+		for (int i = size - 1; i >= 0; i--)
 		{
+			node = mList.get(i);
 			paint.setColor(node.getColor());
 			canvas.drawCircle(node.getX(), node.getY(), mSnake.getRadius(), paint);
+
 		}
 		// 子类的绘制
 		childDraw(canvas, paint, screenWidth, screenHeight);
-		
+
 		// 绘制大概1-2ms
 		paint.setColor(MyConstant.COLOR_RED);
 		// 绘制血量
@@ -144,8 +151,9 @@ public abstract class CommonGame_21_40 implements ISurfaceViewCallBack, ICrossPa
 		// 绘制收集
 		Utils.drawCollection(canvas, paint, mCollectionNUM);
 		// 绘制时间
-		Utils.drawTime(canvas, paint, screenWidth, System.currentTimeMillis() - oldTime);
-		
+		mCurrentUsedTime = System.currentTimeMillis() - oldTime;
+		Utils.drawTime(canvas, paint, screenWidth, mCurrentUsedTime);
+
 		// 绘制粒子//绘制大概8-10ms
 		for (PieceParticle particle : mVector)
 		{

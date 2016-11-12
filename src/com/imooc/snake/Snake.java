@@ -24,7 +24,7 @@ import com.imooc.state.State;
 
 import android.graphics.Color;
 
-public abstract class Snake
+public abstract class Snake 
 {
 
 	// ËÙ¶È

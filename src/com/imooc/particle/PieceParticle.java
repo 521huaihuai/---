@@ -1,5 +1,6 @@
 package com.imooc.particle;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import com.imooc.myConstant.MyConstant;
@@ -11,9 +12,13 @@ import com.imooc.mySufaceView.MainActivity;
  * @author zjm
  *
  */
-public class PieceParticle extends Particle
+public class PieceParticle extends Particle implements Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -12311L;
 	// 粒子管理者
 	private static Manager manager = new Manager();
 

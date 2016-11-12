@@ -1,9 +1,15 @@
 package com.imooc.snake;
 
+import java.io.Serializable;
+
 import android.graphics.Color;
 
-public class Node {
+public class Node implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 10L;
 	private int color;
 	private int x;
 	private int y;

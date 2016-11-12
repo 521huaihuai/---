@@ -1,9 +1,7 @@
 package com.imooc.game;
 
-import java.util.List;
-
-import com.imooc.myBaseGame.CommonGuideGame_00_20;
-import com.imooc.snake.Node;
+import com.imooc.myBaseGame.CommonGuideGame_20_40;
+import com.imooc.particle.PieceParticle;
 import com.imooc.snake.RedSnake;
 import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
@@ -11,10 +9,8 @@ import com.imooc.utils.Utils;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class Game_21 extends CommonGuideGame_00_20
+public class Game_21 extends CommonGuideGame_20_40
 {
-
-	private int colorchangetimes;
 
 
 	@Override
@@ -45,35 +41,11 @@ public class Game_21 extends CommonGuideGame_00_20
 	@Override
 	public void detailLogic()
 	{
-		if (colorchangetimes == 10)
+		if (mColorChangeTimes == 10)
 		{
 			Utils.enterNextCheckPoint("有点不适应吧?", "放心, 接下来让我们一起愉快地玩耍吧~");
 		}
 
-	}
-
-	@Override
-	public void differentColorCrossHandle(int color)
-	{
-		List<Node> mList = mSnake.getList();
-		for (Node node : mList)
-		{
-			node.setColor(color);
-		}
-		colorchangetimes++;
-		mCollectionNUM++;
-	}
-
-	@Override
-	public void birthColorCrosshandle(int color)
-	{
-		List<Node> mList = mSnake.getList();
-		for (Node node : mList)
-		{
-			node.setColor(color);
-		}
-		colorchangetimes++;
-		mCollectionNUM++;
 	}
 
 	@Override
@@ -86,6 +58,13 @@ public class Game_21 extends CommonGuideGame_00_20
 	public void hpIsOver()
 	{
 		Utils.reStartCheckPoint("失败了", "小提示", "除非特殊声明", "之后的游戏吃相克颜色都会造成生命值下降");
+	}
+
+	@Override
+	public void onRemoveParticleCallBack(PieceParticle particle)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

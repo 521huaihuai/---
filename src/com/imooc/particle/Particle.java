@@ -1,5 +1,7 @@
 package com.imooc.particle;
 
+import java.io.Serializable;
+
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.Pos;
 import com.imooc.utils.Utils;
@@ -14,9 +16,13 @@ import com.imooc.utils.Utils;
  * @since 1.0
  *
  */
-public class Particle
+public class Particle implements Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1567823L;
 	// Á£×ÓÑÕÉ«
 	protected int mColor;
 	// Á£×Ó°ë¾¶

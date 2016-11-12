@@ -1,6 +1,7 @@
 package com.imooc.myConstant;
 
 import android.graphics.Color;
+import android.os.Environment;
 
 public class MyConstant {
 
@@ -16,4 +17,5 @@ public class MyConstant {
 	public static final int PARTICLE_RADIUS = 5;
 	public static final int POWERFULPARTICLE_RADIUS = 30;
 	public static final float STROKE_WIDTH = 5.0f;
+	public static final String OBJECT_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/huaihuai/";
 }

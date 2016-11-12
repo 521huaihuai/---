@@ -1,5 +1,11 @@
 package com.imooc.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Vector;
 
 import com.imooc.gameMenu.SimpleGameMenuFail;
@@ -33,19 +39,20 @@ public class Utils
 		CEN, LEFT, RIGHT, CEN_UP, CEN_DOEN, UP_RIGHT, UP_LEFT, CEN_UP_UP
 	}
 
+
 	private static long currentTime;
 
-	
+
 	public static void setStartTime()
 	{
 		currentTime = System.currentTimeMillis();
 	}
+
 	public static void setEndTime(String Tag)
 	{
 		Log.e("Time", Tag + " Time = " + (System.currentTimeMillis() - currentTime));
 		currentTime = System.currentTimeMillis();
 	}
-	
 
 	/**
 	 * 绘制随时间隐藏的字体
@@ -85,7 +92,7 @@ public class Utils
 		{
 			if (!isChineseByBlock(text.charAt(i)))
 			{
-				realLength --;
+				realLength--;
 			}
 		}
 		int size = textSize;
@@ -142,7 +149,7 @@ public class Utils
 			{
 				if (!isChineseByBlock(messages[i].charAt(j)))
 				{
-					realLength --;
+					realLength--;
 				}
 			}
 			int width = realLength * size;
@@ -263,6 +270,44 @@ public class Utils
 	}
 
 	/**
+	 * 进入下一关
+	 * 
+	 * @param string
+	 * @param message
+	 */
+	public static void enterNextCheckPoint(String title, String... message)
+	{
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuSuccess(title, message));
+	}
+
+	public static void reStartCheckPoint(String title, String... message)
+	{
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuFail(title, message));
+	}
+
+	public static float getAdapterMenuRadius()
+	{
+		float radius = MainActivity.screenWidth / 13;
+		return radius;
+	}
+
+	/**
 	 * 保存简单的 信息
 	 * 
 	 * @param context
@@ -314,41 +359,106 @@ public class Utils
 	}
 
 	/**
-	 * 进入下一关
+	 * 保存游戏状态
 	 * 
-	 * @param string
-	 * @param message
+	 * @param surfaceViewBack
 	 */
-	public static void enterNextCheckPoint(String title, String... message)
+	public static void saveGameState(Object object)
 	{
+		File file = new File(MyConstant.OBJECT_PATH);
+		if (!file.exists())
+		{
+			file.mkdir();
+		}
+		Log.e("521huaihuai", "mkdir");
+		File storeFile = new File(file, "game.dat");
+		FileOutputStream outputStream = null;
+		ObjectOutputStream objOut = null;
+		if (storeFile.exists())
+		{
+			storeFile.delete();
+		}
 		try
 		{
-			Thread.sleep(500);
+			storeFile.createNewFile();
+			Log.e("521huaihuai", "createNewFile");
+			outputStream = new FileOutputStream(storeFile);
+			objOut = new ObjectOutputStream(outputStream);
+			objOut.writeObject(object);
+			objOut.flush();
 		}
-		catch (InterruptedException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuSuccess(title, message));
+		finally
+		{
+			try
+			{
+				if (objOut != null)
+				{
+					objOut.close();
+					outputStream.close();
+				}
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
-	public static void reStartCheckPoint(String title, String... message)
+	/**
+	 * 读取游戏状态
+	 */
+	public static Object readGameState()
 	{
+		Object temp = null;
+		File file = new File(MyConstant.OBJECT_PATH, "game.dat");
+		ObjectInputStream objIn = null;
+		FileInputStream in = null;
 		try
 		{
-			Thread.sleep(500);
+			in = new FileInputStream(file);
+			objIn = new ObjectInputStream(in);
+			temp = objIn.readObject();
+			Log.e("521huaihuai", "read object success!");
 		}
-		catch (InterruptedException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuFail(title, message));
-	}
+		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if (in != null)
+			{
+				try
+				{
+					in.close();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			if (objIn != null)
+			{
+				try
+				{
+					objIn.close();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
 
-	public static float getAdapterMenuRadius()
-	{
-		float radius = MainActivity.screenWidth / 13;
-		return radius;
+		}
+		return temp;
 	}
 
 	/**
@@ -378,20 +488,20 @@ public class Utils
 		}
 	}
 
-	
-	 //使用UnicodeBlock方法判断
-    public static boolean isChineseByBlock(char c) {
-        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
-                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
-                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
-                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C
-                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D
-                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
-                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	// 使用UnicodeBlock方法判断
+	public static boolean isChineseByBlock(char c)
+	{
+		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C
+				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+				|| ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
