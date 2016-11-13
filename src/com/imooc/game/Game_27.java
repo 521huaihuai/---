@@ -3,10 +3,10 @@ package com.imooc.game;
 import java.util.List;
 
 import com.imooc.myBaseGame.CommonGame_21_40;
-import com.imooc.particle.PieceParticle;
-import com.imooc.snake.Node;
-import com.imooc.snake.RedSnake;
-import com.imooc.snake.Snake;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.mySnake.Node;
+import com.imooc.mySnake.RedSnake;
+import com.imooc.mySnake.Snake;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

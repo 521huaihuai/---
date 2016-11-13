@@ -2,9 +2,9 @@ package com.imooc.game;
 
 import com.imooc.gameMenu.SimpleGameMenuSuccess;
 import com.imooc.myBaseGame.CommonGame_00_20;
+import com.imooc.mySnake.RedSnake;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.MyAplication;
-import com.imooc.snake.RedSnake;
-import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 

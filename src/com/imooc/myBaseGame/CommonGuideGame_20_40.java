@@ -2,7 +2,8 @@ package com.imooc.myBaseGame;
 
 import java.util.List;
 
-import com.imooc.snake.Node;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.mySnake.Node;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 
@@ -98,6 +99,11 @@ public abstract class CommonGuideGame_20_40 extends CommonGame_21_40
 		}
 		mColorChangeTimes++;
 		mCollectionNUM++;
+	}
+
+	@Override
+	public void onRemoveParticleCallBack(PieceParticle particle)
+	{
 	}
 
 	@Override

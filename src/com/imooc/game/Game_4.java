@@ -7,11 +7,12 @@ import com.imooc.control.IMoveListener;
 import com.imooc.gameMenu.SimpleGameMenuFail;
 import com.imooc.myBaseGame.CommonGame_00_20;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myParticle.ParticleManager;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.mySnake.Node;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.MyAplication;
-import com.imooc.particle.PieceParticle;
-import com.imooc.snake.Node;
-import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 
@@ -79,7 +80,7 @@ public class Game_4 extends CommonGame_00_20 implements IMoveListener
 	@Override
 	protected Vector<PieceParticle> createPartice()
 	{
-		PieceParticle.Manager manager = PieceParticle.newInstance();
+		ParticleManager manager = ParticleManager.newInstance();
 		return manager.createParticle(200);
 	}
 

@@ -5,19 +5,20 @@ import java.util.Vector;
 
 import com.imooc.block.Block;
 import com.imooc.block.DenseFog;
-import com.imooc.block.ICrossBlockListener;
-import com.imooc.block.ICrossDenfogListener;
-import com.imooc.block.ICrossParticleListener;
 import com.imooc.control.IMoveListener;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myCrossListener.ICrossBlockListener;
+import com.imooc.myCrossListener.ICrossDenfogListener;
+import com.imooc.myCrossListener.ICrossParticleListener;
+import com.imooc.myParticle.IPowerfulParticleListener;
+import com.imooc.myParticle.ParticleManager;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.myParticle.PowerfulParticleAbstract;
+import com.imooc.mySnake.Node;
+import com.imooc.mySnake.RedSnake;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.ISurfaceViewCallBack;
 import com.imooc.mySufaceView.MainActivity;
-import com.imooc.particle.IPowerfulParticleListener;
-import com.imooc.particle.PieceParticle;
-import com.imooc.particle.PowerfulParticleAbstract;
-import com.imooc.snake.Node;
-import com.imooc.snake.RedSnake;
-import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 
 import android.graphics.Canvas;
@@ -424,7 +425,7 @@ public abstract class CommonGame_40_60 implements ISurfaceViewCallBack, ICrossPa
 	 */
 	protected Vector<PieceParticle> createPartice()
 	{
-		PieceParticle.Manager manager = PieceParticle.newInstance();
+		ParticleManager manager = ParticleManager.newInstance();
 		return manager.createParticle(100);
 	}
 

@@ -4,9 +4,9 @@ import java.util.LinkedList;
 
 import com.imooc.myBaseGame.CommonGuideGame_00_20;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.mySnake.Node;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.MainActivity;
-import com.imooc.snake.Node;
-import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 
 import android.graphics.Canvas;

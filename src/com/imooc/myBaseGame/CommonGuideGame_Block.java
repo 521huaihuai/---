@@ -4,8 +4,8 @@ import java.util.Vector;
 
 import com.imooc.block.Block;
 import com.imooc.block.DenseFog;
-import com.imooc.particle.PieceParticle;
-import com.imooc.snake.Snake;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.mySnake.Snake;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 

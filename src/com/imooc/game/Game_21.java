@@ -1,9 +1,9 @@
 package com.imooc.game;
 
 import com.imooc.myBaseGame.CommonGuideGame_20_40;
-import com.imooc.particle.PieceParticle;
-import com.imooc.snake.RedSnake;
-import com.imooc.snake.Snake;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.mySnake.RedSnake;
+import com.imooc.mySnake.Snake;
 import com.imooc.utils.Utils;
 
 import android.graphics.Canvas;

@@ -6,10 +6,11 @@ import java.util.Vector;
 import com.imooc.control.IMoveListener;
 import com.imooc.myBaseGame.CommonGuideGame_00_20;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myParticle.ParticleManager;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.mySnake.Node;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.MainActivity;
-import com.imooc.particle.PieceParticle;
-import com.imooc.snake.Node;
-import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 
 import android.graphics.Canvas;
@@ -46,7 +47,7 @@ public class Game_20 extends CommonGuideGame_00_20 implements IMoveListener
 	@Override
 	public Vector<PieceParticle> createPartice()
 	{
-		PieceParticle.Manager manager = PieceParticle.newInstance();
+		ParticleManager manager = ParticleManager.newInstance();
 		return manager.createParticleColors(150, new int[]
 		{ MyConstant.COLOR_GOLD, MyConstant.COLOR_GREEN, MyConstant.COLOR_BLACK });
 	}

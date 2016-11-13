@@ -2,8 +2,8 @@ package com.imooc.myBaseGame;
 
 import com.imooc.block.HideTask;
 import com.imooc.game.Game_22;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.MyAplication;
-import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 
 import android.graphics.Canvas;

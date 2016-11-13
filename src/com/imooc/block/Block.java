@@ -1,6 +1,6 @@
 package com.imooc.block;
 
-import com.imooc.snake.Node;
+import com.imooc.mySnake.Node;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

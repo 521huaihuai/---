@@ -3,11 +3,12 @@ package com.imooc.gameMenu;
 import java.util.Vector;
 
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myParticle.ParticleManager;
+import com.imooc.myParticle.PieceParticle;
 import com.imooc.mySufaceView.ISurfaceViewCallBack;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.MyAplication;
 import com.imooc.mygame.R;
-import com.imooc.particle.PieceParticle;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 
@@ -40,8 +41,8 @@ public class SimpleGameMenuSuccess implements ISurfaceViewCallBack
 		bmpWidth = mBitmap.getWidth();
 		this.text = text;
 		this.message = message;
-		PieceParticle.Manager manager = PieceParticle.newInstance();
-		mMoveVectorB = manager.createBIGParticleWithMove(10, 25);
+		ParticleManager manager = ParticleManager.newInstance();
+		mMoveVectorB = manager.createBIGParticleWithMove(10, MyConstant.BIG_PARTICLE_RADIUS);
 		textZie = MyAplication.getTextSize();
 	}
 

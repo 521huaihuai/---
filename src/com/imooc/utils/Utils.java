@@ -11,10 +11,11 @@ import java.util.Vector;
 import com.imooc.gameMenu.SimpleGameMenuFail;
 import com.imooc.gameMenu.SimpleGameMenuSuccess;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myParticle.BigPieceParticle;
+import com.imooc.myParticle.PieceParticle;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.MyAplication;
 import com.imooc.mySufaceView.Pos;
-import com.imooc.particle.PieceParticle;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -28,7 +29,7 @@ import android.util.Log;
 /**
  * 工具包
  * 
- * @author Administrator
+ * @author zjm
  *
  */
 public class Utils
@@ -43,11 +44,17 @@ public class Utils
 	private static long currentTime;
 
 
+	/**
+	 * 用于测试时间的开始
+	 */
 	public static void setStartTime()
 	{
 		currentTime = System.currentTimeMillis();
 	}
 
+	/**
+	 * 用于测试代码用时
+	 */
 	public static void setEndTime(String Tag)
 	{
 		Log.e("Time", Tag + " Time = " + (System.currentTimeMillis() - currentTime));
@@ -134,9 +141,13 @@ public class Utils
 	 * 用于绘制多条消息
 	 * 
 	 * @param position
+	 *            位置
 	 * @param canvas
+	 *            画布
 	 * @param text
+	 *            文字
 	 * @param paint
+	 *            画笔
 	 */
 	public static void drawMessageText(String[] messages, Canvas canvas, int size, Paint paint)
 	{
@@ -164,39 +175,7 @@ public class Utils
 	}
 
 	/**
-	 * alpha 在time内时间衰减255 - 0
-	 * 
-	 * @param time
-	 * @return
-	 */
-	public static float alphaDecreaseInNearBytime(int time)
-	{
-		return (255 * MyConstant.SLEEPTIME) * 1.0f / (1000 * time);
-	}
-
-	/**
-	 * 是否越界
-	 */
-	public static boolean isOutOfBunds(int x, int y)
-	{
-		if (x < 0 || x > MainActivity.screenWidth) { return true; }
-		if (y < 0 || y > MainActivity.screenHeight) { return true; }
-		return false;
-	}
-
-	/**
-	 * 是否在园内
-	 */
-	public static boolean isInRound(PieceParticle particle, float x, float y, float radius)
-	{
-		float distance = (float) Math.sqrt(Math.pow(x - particle.getX(), 2) + Math.pow(y - particle.getY(), 2));
-		return distance <= radius;
-	}
-
-	/**
 	 * 绘制血量
-	 * 
-	 * @param hp
 	 */
 	public static void drawHp(Canvas canvas, Paint paint, float radius, int hp)
 	{
@@ -210,8 +189,6 @@ public class Utils
 
 	/**
 	 * 绘制时间
-	 * 
-	 * @param time
 	 */
 	public static void drawTime(Canvas canvas, Paint paint, float radius, long time)
 	{
@@ -224,11 +201,6 @@ public class Utils
 
 	/**
 	 * 绘制收集数
-	 * 
-	 * @param canvas
-	 * @param paint
-	 * @param radius
-	 * @param hp
 	 */
 	public static void drawCollection(Canvas canvas, Paint paint, int collectionNum)
 	{
@@ -241,10 +213,6 @@ public class Utils
 
 	/**
 	 * 绘制粒子
-	 * 
-	 * @param canvas
-	 * @param particles
-	 * @param paint
 	 */
 	public static void drawParticle(Canvas canvas, Vector<PieceParticle> particles, Paint paint)
 	{
@@ -253,6 +221,68 @@ public class Utils
 			paint.setColor(particle.getColor());
 			canvas.drawCircle(particle.getX(), particle.getY(), particle.getRadius(), paint);
 		}
+	}
+
+	/**
+	 * 将3维的转化到ParticleList中
+	 */
+	public static Vector<BigPieceParticle> convertData2ParticleVector(int[] data)
+	{
+		Vector<BigPieceParticle> bigPieceParticles = new Vector<BigPieceParticle>();
+		if (data.length < 3)
+		{
+			return null;
+		}
+		if (data.length % 3 != 0)
+		{
+			throw new IllegalArgumentException("数据不规范");
+		}
+		int size = data.length / 3;
+		BigPieceParticle bParticle = null;
+		for (int i = 0; i < size; i++)
+		{
+			bParticle = new BigPieceParticle(data[3 * i], data[3 * i + 1], data[3 * i + 2]);
+			bigPieceParticles.add(bParticle);
+		}
+		return bigPieceParticles;
+	}
+
+	/**
+	 * 是否越界
+	 */
+	public static boolean isOutOfBunds(int x, int y)
+	{
+		if (x < 0 || x > MainActivity.screenWidth)
+		{
+			return true;
+		}
+		if (y < 0 || y > MainActivity.screenHeight)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 是否在园内
+	 */
+	public static boolean isInRound(PieceParticle particle, float x, float y, float radius)
+	{
+		float distance = (float) Math.sqrt(Math.pow(x - particle.getX(), 2) + Math.pow(y - particle.getY(), 2));
+		return distance <= radius;
+	}
+
+	public static void reStartCheckPoint(String title, String... message)
+	{
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuFail(title, message));
 	}
 
 	/**
@@ -273,7 +303,9 @@ public class Utils
 	 * 进入下一关
 	 * 
 	 * @param string
+	 *            标题
 	 * @param message
+	 *            展示内容
 	 */
 	public static void enterNextCheckPoint(String title, String... message)
 	{
@@ -288,31 +320,19 @@ public class Utils
 		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuSuccess(title, message));
 	}
 
-	public static void reStartCheckPoint(String title, String... message)
+	/**
+	 * alpha 在time内时间衰减255 - 0
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public static float alphaDecreaseInNearBytime(int time)
 	{
-		try
-		{
-			Thread.sleep(500);
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuFail(title, message));
-	}
-
-	public static float getAdapterMenuRadius()
-	{
-		float radius = MainActivity.screenWidth / 13;
-		return radius;
+		return (255 * MyConstant.SLEEPTIME) * 1.0f / (1000 * time);
 	}
 
 	/**
 	 * 保存简单的 信息
-	 * 
-	 * @param context
-	 * @param string
-	 * @return
 	 */
 	public static void saveDataString(Context context, String key, String string)
 	{
@@ -337,31 +357,7 @@ public class Utils
 	}
 
 	/**
-	 * 读取SharedPreferences数据
-	 * 
-	 * @param context
-	 */
-	public static int loadDataInt(Context context, String key)
-	{
-		SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
-		return sp.getInt(key, 1);
-	}
-
-	/**
-	 * 读取SharedPreferences数据
-	 * 
-	 * @param context
-	 */
-	public static String loadDataString(Context context, String key)
-	{
-		SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
-		return sp.getString(key, "");
-	}
-
-	/**
 	 * 保存游戏状态
-	 * 
-	 * @param surfaceViewBack
 	 */
 	public static void saveGameState(Object object)
 	{
@@ -462,12 +458,31 @@ public class Utils
 	}
 
 	/**
-	 * 获取不同的颜色
+	 * 读取SharedPreferences数据
 	 * 
-	 * @param color
-	 * @return
+	 * @param context
 	 */
-	public static int getDifferentColor(int color)
+	public static int loadDataInt(Context context, String key)
+	{
+		SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
+		return sp.getInt(key, 1);
+	}
+
+	/**
+	 * 读取SharedPreferences数据
+	 * 
+	 * @param context
+	 */
+	public static String loadDataString(Context context, String key)
+	{
+		SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
+		return sp.getString(key, "");
+	}
+
+	/**
+	 * 获取相克的颜色
+	 */
+	public static int getOppsiteColor(int color)
 	{
 		if (color == MyConstant.COLOR_BLUE)
 		{
@@ -486,6 +501,33 @@ public class Utils
 			default:
 				return MyConstant.COLOR_RED;
 		}
+	}
+
+	/**
+	 * 获取适配的菜单半径大小
+	 */
+	public static float getAdapterMenuRadius()
+	{
+		float radius = MainActivity.screenWidth / 13;
+		return radius;
+	}
+
+	/**
+	 * 获取适配的大型粒子半径大小
+	 */
+	public static float getAdapterBigParticleRadius()
+	{
+		float radius = MainActivity.screenWidth / 34;
+		return radius;
+	}
+	
+	/**
+	 * 获取适配的Node半径大小
+	 */
+	public static float getAdapterSnakeRadius()
+	{
+		float radius = MainActivity.screenWidth / 68;
+		return radius;
 	}
 
 	// 使用UnicodeBlock方法判断

@@ -7,15 +7,16 @@ import com.imooc.control.Control;
 import com.imooc.control.Move;
 import com.imooc.myBaseGame.CommonGuideGame_20_40;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myParticle.ParticleManager;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.myParticle.PowerfulParticleAbstract;
+import com.imooc.myParticle.PowerfulParticle_horizontal;
+import com.imooc.myParticle.PowerfulParticle_horizontal_vertical;
+import com.imooc.myParticle.PowerfulParticle_scattering;
+import com.imooc.myParticle.PowerfulParticle_vertical;
+import com.imooc.mySnake.Node;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.MainActivity;
-import com.imooc.particle.PieceParticle;
-import com.imooc.particle.PowerfulParticleAbstract;
-import com.imooc.particle.PowerfulParticle_horizontal;
-import com.imooc.particle.PowerfulParticle_horizontal_vertical;
-import com.imooc.particle.PowerfulParticle_scattering;
-import com.imooc.particle.PowerfulParticle_vertical;
-import com.imooc.snake.Node;
-import com.imooc.snake.Snake;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -53,14 +54,9 @@ public class Game_45 extends CommonGuideGame_20_40
 	@Override
 	protected Vector<PieceParticle> createPartice()
 	{
-		return PieceParticle.newInstance().createBIGParticle(150, MyConstant.PARTICLE_RADIUS);
+		return ParticleManager.newInstance().createBIGParticle(150, MyConstant.PARTICLE_RADIUS);
 	}
 
-	@Override
-	public void onRemoveParticleCallBack(PieceParticle particle)
-	{
-		mCollectionNUM++;
-	}
 
 	@Override
 	public void detailDraw(Canvas canvas, Paint paint, int screenWidth, int screenHeight)

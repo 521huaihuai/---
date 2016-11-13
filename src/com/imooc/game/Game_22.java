@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import com.imooc.block.HideTask;
-import com.imooc.block.ICrossHidePosListener;
 import com.imooc.myBaseGame.CommonGuideGame_20_40;
 import com.imooc.myBaseGame.HideGame_BirthColor;
 import com.imooc.myBaseGame.HideGame_DifferColor;
 import com.imooc.myBaseGame.HideGame_OppsiteColor;
 import com.imooc.myBaseGame.HideGame_SameColor;
+import com.imooc.myCrossListener.ICrossHidePosListener;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.mySnake.BlueSnake;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.MyAplication;
-import com.imooc.particle.PieceParticle;
-import com.imooc.snake.BlueSnake;
-import com.imooc.snake.Snake;
 import com.imooc.utils.Utils;
 
 import android.graphics.Canvas;

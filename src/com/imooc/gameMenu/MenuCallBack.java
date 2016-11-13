@@ -3,11 +3,12 @@ package com.imooc.gameMenu;
 import java.util.Vector;
 
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myParticle.ParticleManager;
+import com.imooc.myParticle.PieceParticle;
 import com.imooc.mySufaceView.ISurfaceViewCallBack;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.MyAplication;
 import com.imooc.mySufaceView.Pos;
-import com.imooc.particle.PieceParticle;
 import com.imooc.utils.Utils;
 
 import android.graphics.Canvas;
@@ -34,10 +35,10 @@ public class MenuCallBack implements ISurfaceViewCallBack {
 		MainActivity.screenWidth = screenWidth;
 		mGameMenus = GameMenu.createGameMenus(MainActivity.currentRelevant);
 		mRadius = Utils.getAdapterMenuRadius();
-		PieceParticle.Manager manager = PieceParticle.newInstance();
+		ParticleManager manager = ParticleManager.newInstance();
 		mVector = manager.createParticle(100);
-		mMoveVector = manager.createBIGParticleWithMove(20, 15);
-		mMoveVectorB = manager.createBIGParticleWithMove(10, 25);
+		mMoveVector = manager.createBIGParticleWithMove(20, MyConstant.MID_PARTICLE_RADIUS);
+		mMoveVectorB = manager.createBIGParticleWithMove(10, MyConstant.BIG_PARTICLE_RADIUS);
 		textZie = MyAplication.getTextSize();
 	}
 

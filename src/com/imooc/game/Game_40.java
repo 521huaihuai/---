@@ -8,11 +8,11 @@ import com.imooc.control.IMoveListener;
 import com.imooc.control.Move;
 import com.imooc.myBaseGame.CommonGame_21_40;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myParticle.PieceParticle;
+import com.imooc.mySnake.Node;
+import com.imooc.mySnake.Snake;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.MyAplication;
-import com.imooc.particle.PieceParticle;
-import com.imooc.snake.Node;
-import com.imooc.snake.Snake;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

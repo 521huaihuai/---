@@ -1,8 +1,8 @@
 package com.imooc.game;
 
 import com.imooc.myBaseGame.CommonGuideGame_00_20;
-import com.imooc.snake.BlueSnake;
-import com.imooc.snake.Snake;
+import com.imooc.mySnake.BlueSnake;
+import com.imooc.mySnake.Snake;
 import com.imooc.utils.Utils;
 import com.imooc.utils.Utils.Position;
 
