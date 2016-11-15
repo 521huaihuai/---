@@ -46,7 +46,7 @@ public class Game_2 extends CommonGame_00_20{
 				alpha = 255;
 			}
 		}
-		Utils.drawAlphaText(Position.CEN, canvas, text[index], paint, alpha);
+		Utils.drawAlphaText(Position.CEN_UP, canvas, text[index], paint, alpha);
 	}
 
 	@Override

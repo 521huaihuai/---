@@ -50,6 +50,15 @@ public class CommonGameMenu implements ISurfaceViewCallBack
 			Pos pos = null;
 			pos = menu.getPos();
 			paint.setColor(MyConstant.COLOR_BLACK);
+			if (menu.isLocked() == 0)
+			{
+
+				paint.setAlpha(MyConstant.LOCK_ALPHA);
+			}
+			else
+			{
+				paint.setAlpha(255);
+			}
 			canvas.drawCircle(pos.getX(), pos.getY(), mRaius, paint);
 			paint.setColor(MyConstant.COLORS[2]);
 			paint.setTextSize(MyAplication.getTextSize());
@@ -138,8 +147,11 @@ public class CommonGameMenu implements ISurfaceViewCallBack
 							}
 							else
 							{
-								ISurfaceViewCallBack game = (ISurfaceViewCallBack) Class.forName("com.imooc.game.Game_" + point).newInstance();
-								MyAplication.getSurfaceView().setOnISurfaceViewCallBack(game);
+								if (!Utils.checkIsLocked(point))
+								{
+									ISurfaceViewCallBack game = (ISurfaceViewCallBack) Class.forName("com.imooc.game.Game_" + point).newInstance();
+									MyAplication.getSurfaceView().setOnISurfaceViewCallBack(game);
+								}
 							}
 						}
 						catch (InstantiationException e)

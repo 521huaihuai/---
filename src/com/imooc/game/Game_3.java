@@ -80,7 +80,7 @@ public class Game_3 extends CommonGame_00_20
 	@Override
 	public void childDraw(Canvas canvas, Paint paint, int screenWidth, int screenHeight)
 	{
-		Utils.drawAlphaText(Position.CEN, canvas, text, paint, alpha);
+		Utils.drawAlphaText(Position.CEN_UP, canvas, text, paint, alpha);
 	}
 
 	@Override

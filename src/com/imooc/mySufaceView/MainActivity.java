@@ -3,6 +3,8 @@ package com.imooc.mySufaceView;
 import com.imooc.gameMenu.CommonGameMenu;
 import com.imooc.gameMenu.MenuCallBack;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myDataBase.BeanGame;
+import com.imooc.myDataBase.MySQLiteGame;
 import com.imooc.utils.Utils;
 
 import android.app.Activity;
@@ -19,7 +21,8 @@ import android.widget.Toast;
  * @author zjm 23
  *
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+{
 
 	private MyAplication myAplication;
 	private MySurfaceView surfaceView;
@@ -28,24 +31,31 @@ public class MainActivity extends Activity {
 	public static int screenHeight;
 	public static int currentRelevant;
 
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		// 设置全屏
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		myAplication = (MyAplication) getApplication();
 		myAplication.setContext(this);
 
 		// 加载字体大小textSize
 		int textSize = Utils.loadDataInt(this, "textSize");
-		if (textSize == 1) {
+		if (textSize == 1)
+		{
 			textSize = 50;
 		}
 		myAplication.setTextSize(textSize);
 		// 加载关卡
 		currentRelevant = Utils.loadDataInt(this, "checkPoint");
+
+		if (Utils.checkIsLocked(1))
+		{
+			new MySQLiteGame(this).insert(new BeanGame(1, 1, 0, 1, ""));
+		}
 
 		// 显示自定义的SurfaceView视图
 		surfaceView = new MySurfaceView(this);
@@ -57,10 +67,13 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if ((keyCode == KeyEvent.KEYCODE_BACK))
+		{
 			Log.e("521huaihuai", "time = " + (System.currentTimeMillis() - currentTime));
-			if (System.currentTimeMillis() - currentTime > 800) {
+			if (System.currentTimeMillis() - currentTime > 800)
+			{
 				surfaceView.setOnISurfaceViewCallBack(new CommonGameMenu(currentRelevant));
 				Toast.makeText(MainActivity.this, "双击退出", Toast.LENGTH_SHORT).show();
 				currentTime = System.currentTimeMillis();
@@ -70,7 +83,8 @@ public class MainActivity extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public static long getCurrentTime() {
+	public static long getCurrentTime()
+	{
 		return System.currentTimeMillis();
 	}
 

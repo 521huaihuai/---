@@ -49,7 +49,7 @@ public class Game_1 implements ISurfaceViewCallBack {
 				alpha = 255;
 			}
 		}
-		Utils.drawAlphaText(Position.CEN, canvas, text[index], paint, alpha);
+		Utils.drawAlphaText(Position.CEN_UP, canvas, text[index], paint, alpha);
 
 		paint.setColor(mRedSnake.getColor());
 		for (Node pos : mList) {

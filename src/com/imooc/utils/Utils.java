@@ -11,6 +11,7 @@ import java.util.Vector;
 import com.imooc.gameMenu.SimpleGameMenuFail;
 import com.imooc.gameMenu.SimpleGameMenuSuccess;
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myDataBase.MySQLiteGame;
 import com.imooc.myParticle.BigPieceParticle;
 import com.imooc.myParticle.PieceParticle;
 import com.imooc.mySufaceView.MainActivity;
@@ -59,6 +60,17 @@ public class Utils
 	{
 		Log.e("Time", Tag + " Time = " + (System.currentTimeMillis() - currentTime));
 		currentTime = System.currentTimeMillis();
+	}
+
+	/**
+	 * 检测该关卡是否被锁定
+	 * 
+	 * @param checkPoint
+	 * @return <code>true</code> 代表被锁定
+	 */
+	public static boolean checkIsLocked(int checkPoint)
+	{
+		return new MySQLiteGame(MyAplication.getContext()).findIsLock(checkPoint) == 0 ? true : false;
 	}
 
 	/**
@@ -520,7 +532,7 @@ public class Utils
 		float radius = MainActivity.screenWidth / 34;
 		return radius;
 	}
-	
+
 	/**
 	 * 获取适配的Node半径大小
 	 */

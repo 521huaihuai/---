@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myDataBase.MySQLiteGame;
 import com.imooc.mySufaceView.MainActivity;
+import com.imooc.mySufaceView.MyAplication;
 import com.imooc.mySufaceView.Pos;
 import com.imooc.utils.Utils;
 
-public class GameMenu {
+public class GameMenu
+{
 
 	// 游戏菜单的位置
 	private Pos mPos;
@@ -17,23 +20,29 @@ public class GameMenu {
 	// 动态游戏菜单的速度
 	private int speed;
 	private int color;
+	private int isLocked;
 
-	public static GameMenu[] createGameMenus(int startPos) {
+
+	public static GameMenu[] createGameMenus(int startPos)
+	{
+		MySQLiteGame sqLiteGame = new MySQLiteGame(MyAplication.getContext());
 		GameMenu[] mGameMenus = new GameMenu[6];
-		mGameMenus[0] = new GameMenu(startPos);
-		mGameMenus[1] = new GameMenu(startPos + 1);
-		mGameMenus[2] = new GameMenu(startPos + 2);
-		mGameMenus[3] = new GameMenu(startPos + 3);
-		mGameMenus[4] = new GameMenu(0);
-		mGameMenus[5] = new GameMenu(-1);
+		mGameMenus[0] = new GameMenu(startPos, sqLiteGame.findIsLock(startPos));
+		mGameMenus[1] = new GameMenu(startPos + 1, sqLiteGame.findIsLock(startPos + 1));
+		mGameMenus[2] = new GameMenu(startPos + 2, sqLiteGame.findIsLock(startPos + 2));
+		mGameMenus[3] = new GameMenu(startPos + 3, sqLiteGame.findIsLock(startPos + 3));
+		mGameMenus[4] = new GameMenu(0, 1);
+		mGameMenus[5] = new GameMenu(-1, 1);
 		List<Pos> list = product5Circle(MainActivity.screenWidth, MainActivity.screenHeight);
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 6; i++)
+		{
 			mGameMenus[i].setPos(list.get(i));
 		}
 		return mGameMenus;
 	}
 
-	private static List<Pos> product5Circle(int screenWidth, int screenHeight) {
+	private static List<Pos> product5Circle(int screenWidth, int screenHeight)
+	{
 		List<Pos> mList = new ArrayList<Pos>();
 		float mRadius = Utils.getAdapterMenuRadius();
 		Pos pos = null;
@@ -60,48 +69,70 @@ public class GameMenu {
 	 * @param maxWidth
 	 * @param maxHeight
 	 */
-	public static Pos drawGameMenu(float radius, int startX, int startY, int width, int height) {
+	public static Pos drawGameMenu(float radius, int startX, int startY, int width, int height)
+	{
 		int x = (int) (Math.random() * (width - 2 * radius) + radius + startX);
 		int y = (int) (Math.random() * (height - 2 * radius) + radius + startY);
 		return new Pos(x, y);
 	}
 
-	public int getColor() {
-		return color;
-	}
-
-	public void setColor(int color) {
-		this.color = color;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	public int getCheckpoint() {
-		return Checkpoint;
-	}
-
-	public void setCheckpoint(int checkpoint) {
+	public GameMenu(int checkpoint)
+	{
 		Checkpoint = checkpoint;
-	}
-
-	public GameMenu(int checkpoint) {
-		super();
-		Checkpoint = checkpoint;
-
+		isLocked = 0;
 		color = MyConstant.COLORS[Math.abs(checkpoint % 5)];
 	}
 
-	public Pos getPos() {
+	public GameMenu(int checkpoint, int lock)
+	{
+		Checkpoint = checkpoint;
+		isLocked = lock;
+		color = MyConstant.COLORS[Math.abs(checkpoint % 5)];
+	}
+
+	public int isLocked()
+	{
+		return isLocked;
+	}
+
+	public int getColor()
+	{
+		return color;
+	}
+
+	public void setColor(int color)
+	{
+		this.color = color;
+	}
+
+	public int getSpeed()
+	{
+		return speed;
+	}
+
+	public void setSpeed(int speed)
+	{
+		this.speed = speed;
+	}
+
+	public int getCheckpoint()
+	{
+		return Checkpoint;
+	}
+
+	public void setCheckpoint(int checkpoint)
+	{
+		Checkpoint = checkpoint;
+
+	}
+
+	public Pos getPos()
+	{
 		return mPos;
 	}
 
-	public void setPos(Pos mPos) {
+	public void setPos(Pos mPos)
+	{
 		this.mPos = mPos;
 	}
 

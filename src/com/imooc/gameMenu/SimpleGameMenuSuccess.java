@@ -3,6 +3,8 @@ package com.imooc.gameMenu;
 import java.util.Vector;
 
 import com.imooc.myConstant.MyConstant;
+import com.imooc.myDataBase.BeanGame;
+import com.imooc.myDataBase.MySQLiteGame;
 import com.imooc.myParticle.ParticleManager;
 import com.imooc.myParticle.PieceParticle;
 import com.imooc.mySufaceView.ISurfaceViewCallBack;
@@ -16,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class SimpleGameMenuSuccess implements ISurfaceViewCallBack
@@ -44,6 +47,13 @@ public class SimpleGameMenuSuccess implements ISurfaceViewCallBack
 		ParticleManager manager = ParticleManager.newInstance();
 		mMoveVectorB = manager.createBIGParticleWithMove(10, MyConstant.BIG_PARTICLE_RADIUS);
 		textZie = MyAplication.getTextSize();
+		
+		//更新游戏数据
+		MySQLiteGame sqLiteGame = new MySQLiteGame(MyAplication.getContext());
+		// 解锁游戏并更新
+		//sqLiteGame.update(new BeanGame(1, 1, 1, ""), MainActivity.currentRelevant);
+		sqLiteGame.insert(new BeanGame(MainActivity.currentRelevant + 1, 0, 0, 1, ""));
+		Log.e("521huaihuai", "isLock = " + sqLiteGame.findIsLock(MainActivity.currentRelevant));
 	}
 
 	@Override
