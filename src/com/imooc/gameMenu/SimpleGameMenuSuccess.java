@@ -35,7 +35,7 @@ public class SimpleGameMenuSuccess implements ISurfaceViewCallBack
 	private float textZie;
 
 
-	public SimpleGameMenuSuccess(String text, String... message)
+	public SimpleGameMenuSuccess(String text, int score, String... message)
 	{
 		mBitmap = BitmapFactory.decodeResource(MyAplication.getContext().getResources(), R.drawable.aaa);
 		reStart = BitmapFactory.decodeResource(MyAplication.getContext().getResources(), R.drawable.img_appwidget91_voice_refresh_pressed);
@@ -47,12 +47,21 @@ public class SimpleGameMenuSuccess implements ISurfaceViewCallBack
 		ParticleManager manager = ParticleManager.newInstance();
 		mMoveVectorB = manager.createBIGParticleWithMove(10, MyConstant.BIG_PARTICLE_RADIUS);
 		textZie = MyAplication.getTextSize();
-		
-		//更新游戏数据
+		// 更新游戏数据
 		MySQLiteGame sqLiteGame = new MySQLiteGame(MyAplication.getContext());
 		// 解锁游戏并更新
-		//sqLiteGame.update(new BeanGame(1, 1, 1, ""), MainActivity.currentRelevant);
-		sqLiteGame.insert(new BeanGame(MainActivity.currentRelevant + 1, 0, 0, 1, ""));
+		if (sqLiteGame.findIsLock(MainActivity.currentRelevant + 1) == 0)
+		{
+			sqLiteGame.insert(new BeanGame(MainActivity.currentRelevant + 1, 0, 0, 1, ""));
+		}
+		else
+		{
+			if (sqLiteGame.findStar(MainActivity.currentRelevant) < score)
+			{
+				sqLiteGame.update(new BeanGame(MainActivity.currentRelevant, 0, score, 1, ""), MainActivity.currentRelevant);
+			}
+		}
+
 		Log.e("521huaihuai", "isLock = " + sqLiteGame.findIsLock(MainActivity.currentRelevant));
 	}
 
@@ -146,11 +155,17 @@ public class SimpleGameMenuSuccess implements ISurfaceViewCallBack
 		float maxy = 0.6f * MainActivity.screenHeight + bmpHeight / 2;
 		if (x > minx && x < maxX)
 		{
-			if (y > miny && y < maxy) { return 0; }
+			if (y > miny && y < maxy)
+			{
+				return 0;
+			}
 		}
 		if (x > (minx + MainActivity.screenWidth / 3) && x < (maxX + MainActivity.screenWidth / 3))
 		{
-			if (y > miny && y < maxy) { return 1; }
+			if (y > miny && y < maxy)
+			{
+				return 1;
+			}
 		}
 		return -1;
 	}

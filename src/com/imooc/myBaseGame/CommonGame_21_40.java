@@ -309,7 +309,10 @@ public abstract class CommonGame_21_40 implements ISurfaceViewCallBack, ICrossPa
 	 */
 	private PowerfulParticleAbstract getAllPowerfulParticle(Vector<PowerfulParticleAbstract> mPowfularticles2)
 	{
-		if (mPowfularticles2 == null) { return null; }
+		if (mPowfularticles2 == null)
+		{
+			return null;
+		}
 		int cenX = mList.getFirst().getX();
 		int cenY = mList.getFirst().getY();
 		int currentX;
@@ -420,6 +423,30 @@ public abstract class CommonGame_21_40 implements ISurfaceViewCallBack, ICrossPa
 	public void surfaceCreatedCallBack(int screenW, int screenH)
 	{
 
+	}
+
+	/**
+	 * 进入下一关
+	 */
+	public void enterNextCheckPoint(String title, String... messages)
+	{
+		enterNextCheckPoint(title, 1, 1, 1, messages);
+	}
+
+	public void enterNextCheckPoint(String title, float x1_time, float x2_hp, float x3_collection, String... messages)
+	{
+		enterNextCheckPoint(title, 60, x1_time, x2_hp, x3_collection, messages);
+	}
+
+	public void enterNextCheckPoint(String title, int baseScore, String... messages)
+	{
+		enterNextCheckPoint(title, baseScore, 1, 1, 1, messages);
+	}
+
+	public void enterNextCheckPoint(String title, int baseScore, float x1_time, float x2_hp, float x3_collection, String... messages)
+	{
+		Utils.enterNextCheckPoint(title, Utils.judgeScores(getUsedTime(), mSnake.getCurrentHp(), mCollectionNUM, x1_time, x2_hp, x3_collection, baseScore),
+				messages);
 	}
 
 }

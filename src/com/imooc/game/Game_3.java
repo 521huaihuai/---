@@ -96,7 +96,7 @@ public class Game_3 extends CommonGame_00_20
 		}
 		if (mSnake.getList().getFirst().getX() >= MainActivity.screenWidth)
 		{
-			Utils.enterNextCheckPoint("你成功了", "下一关任务", "不能停! 不能停! 不能停!");
+			enterNextCheckPoint("你成功了",160,1, 1, 5, "下一关任务", "不能停! 不能停! 不能停!");
 		}
 	}
 

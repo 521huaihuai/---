@@ -63,6 +63,18 @@ public class Utils
 	}
 
 	/**
+	 * 获取游戏得分
+	 */
+	public static int judgeScores(long time, int hp, int colloction, float x1, float x2, float x3, int baseScore)
+	{
+
+		int score = (int) (baseScore + hp * x2 + colloction * x3 - time * x1);
+		Log.e("521huaihuai", "time = " + time + " hp =" + hp + " colloction = " + colloction);
+		Log.e("521huaihuai", "score = " + score);
+		return score < 0 ? 9 : score;
+	}
+
+	/**
 	 * 检测该关卡是否被锁定
 	 * 
 	 * @param checkPoint
@@ -319,7 +331,7 @@ public class Utils
 	 * @param message
 	 *            展示内容
 	 */
-	public static void enterNextCheckPoint(String title, String... message)
+	public static void enterNextCheckPoint(String title, int score, String... message)
 	{
 		try
 		{
@@ -329,7 +341,7 @@ public class Utils
 		{
 			e.printStackTrace();
 		}
-		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuSuccess(title, message));
+		MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new SimpleGameMenuSuccess(title, score, message));
 	}
 
 	/**

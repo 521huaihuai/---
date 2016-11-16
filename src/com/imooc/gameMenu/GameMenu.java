@@ -20,19 +20,22 @@ public class GameMenu
 	// 动态游戏菜单的速度
 	private int speed;
 	private int color;
+	// 该关卡是否上锁
 	private int isLocked;
+	// 该关卡的得分
+	private int score;
 
 
 	public static GameMenu[] createGameMenus(int startPos)
 	{
 		MySQLiteGame sqLiteGame = new MySQLiteGame(MyAplication.getContext());
 		GameMenu[] mGameMenus = new GameMenu[6];
-		mGameMenus[0] = new GameMenu(startPos, sqLiteGame.findIsLock(startPos));
-		mGameMenus[1] = new GameMenu(startPos + 1, sqLiteGame.findIsLock(startPos + 1));
-		mGameMenus[2] = new GameMenu(startPos + 2, sqLiteGame.findIsLock(startPos + 2));
-		mGameMenus[3] = new GameMenu(startPos + 3, sqLiteGame.findIsLock(startPos + 3));
-		mGameMenus[4] = new GameMenu(0, 1);
-		mGameMenus[5] = new GameMenu(-1, 1);
+		mGameMenus[0] = new GameMenu(startPos, sqLiteGame.findIsLock(startPos), sqLiteGame.findStar(startPos));
+		mGameMenus[1] = new GameMenu(startPos + 1, sqLiteGame.findIsLock(startPos + 1), sqLiteGame.findStar(startPos + 1));
+		mGameMenus[2] = new GameMenu(startPos + 2, sqLiteGame.findIsLock(startPos + 2), sqLiteGame.findStar(startPos + 2));
+		mGameMenus[3] = new GameMenu(startPos + 3, sqLiteGame.findIsLock(startPos + 3), sqLiteGame.findStar(startPos + 3));
+		mGameMenus[4] = new GameMenu(0, 1, -11);
+		mGameMenus[5] = new GameMenu(-1, 1, -11);
 		List<Pos> list = product5Circle(MainActivity.screenWidth, MainActivity.screenHeight);
 		for (int i = 0; i < 6; i++)
 		{
@@ -76,18 +79,17 @@ public class GameMenu
 		return new Pos(x, y);
 	}
 
-	public GameMenu(int checkpoint)
-	{
-		Checkpoint = checkpoint;
-		isLocked = 0;
-		color = MyConstant.COLORS[Math.abs(checkpoint % 5)];
-	}
-
-	public GameMenu(int checkpoint, int lock)
+	public GameMenu(int checkpoint, int lock, int score)
 	{
 		Checkpoint = checkpoint;
 		isLocked = lock;
+		this.score = score;
 		color = MyConstant.COLORS[Math.abs(checkpoint % 5)];
+	}
+
+	public int getSocre()
+	{
+		return score;
 	}
 
 	public int isLocked()
@@ -110,20 +112,9 @@ public class GameMenu
 		return speed;
 	}
 
-	public void setSpeed(int speed)
-	{
-		this.speed = speed;
-	}
-
 	public int getCheckpoint()
 	{
 		return Checkpoint;
-	}
-
-	public void setCheckpoint(int checkpoint)
-	{
-		Checkpoint = checkpoint;
-
 	}
 
 	public Pos getPos()

@@ -43,7 +43,7 @@ public class Game_21 extends CommonGuideGame_20_40
 	{
 		if (mColorChangeTimes == 10)
 		{
-			Utils.enterNextCheckPoint("有点不适应吧?", "放心, 接下来让我们一起愉快地玩耍吧~");
+			enterNextCheckPoint("有点不适应吧?", "放心, 接下来让我们一起愉快地玩耍吧~");
 		}
 
 	}

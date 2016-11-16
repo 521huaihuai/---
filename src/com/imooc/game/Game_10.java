@@ -44,7 +44,7 @@ public class Game_10 extends CommonGuideGame_00_20
 	{
 		if (mCollectionNUM == 30)
 		{
-			Utils.enterNextCheckPoint("下一关", "经过小小的游戏训练,适应这条规则了吗?", "我们将开始时间限制,考考你的反应", "在60秒内收集20个");
+			enterNextCheckPoint("下一关", "经过小小的游戏训练,适应这条规则了吗?", "我们将开始时间限制,考考你的反应", "在60秒内收集20个");
 		}
 	}
 

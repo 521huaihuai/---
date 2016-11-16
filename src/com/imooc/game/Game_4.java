@@ -125,7 +125,7 @@ public class Game_4 extends CommonGame_00_20 implements IMoveListener
 			{
 				e.printStackTrace();
 			}
-			Utils.enterNextCheckPoint("你成功到了", "所用时间 : " + getUsedTime(), "任务 : 很好, 你的控制力还是不错的, 接下来考考你的脑力了");
+			enterNextCheckPoint("你成功到了", "所用时间 : " + getUsedTime(), "任务 : 很好, 你的控制力还是不错的, 接下来考考你的脑力了");
 		}
 	}
 

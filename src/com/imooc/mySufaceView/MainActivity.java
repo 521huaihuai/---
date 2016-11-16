@@ -54,7 +54,7 @@ public class MainActivity extends Activity
 
 		if (Utils.checkIsLocked(1))
 		{
-			new MySQLiteGame(this).insert(new BeanGame(1, 1, 0, 1, ""));
+			new MySQLiteGame(this).insert(new BeanGame(1, 1, 100, 1, ""));
 		}
 
 		// 显示自定义的SurfaceView视图

@@ -46,7 +46,7 @@ public class Game_17 extends CommonGuideGame_00_20
 		{
 			if (mSnake.getList().getFirst().getX() >= MainActivity.screenWidth)
 			{
-				Utils.enterNextCheckPoint("通过了", "从最左侧无停顿移动到最右侧", "15秒内收集15个");
+				enterNextCheckPoint("通过了", "从最左侧无停顿移动到最右侧", "15秒内收集15个");
 			}
 		}
 	}

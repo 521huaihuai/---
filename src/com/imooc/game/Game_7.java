@@ -40,7 +40,7 @@ public class Game_7 extends CommonGuideGame_00_20
 	{
 		if (mCollectionNUM == 30)
 		{
-			Utils.enterNextCheckPoint("下一关", "任务 : 收集30个", "不要收集相克颜色,注意自己的生命值");
+			enterNextCheckPoint("下一关", "任务 : 收集30个", "不要收集相克颜色,注意自己的生命值");
 		}
 	}
 

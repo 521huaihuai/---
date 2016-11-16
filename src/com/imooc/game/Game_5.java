@@ -55,7 +55,7 @@ public class Game_5 extends CommonGuideGame_00_20
 					alpha = 255;
 				}
 			}
-			Utils.drawAlphaText(Position.CEN_UP, canvas, selfGuide[index], paint, alpha);
+			Utils.drawAlphaText(Position.CEN_UP_UP, canvas, selfGuide[index], paint, alpha);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class Game_5 extends CommonGuideGame_00_20
 	@Override
 	public void hpIsOver()
 	{
-		Utils.enterNextCheckPoint("游戏? 规则?", "是不是有点晕呢? 没记住?", "接下来我们提供一系列简单的小游戏来加深印象", "金克木克土克水克火克金", "小提示 :黄金绿树黑土水蓝火红");
+		enterNextCheckPoint("游戏? 规则?", "是不是有点晕呢? 没记住?", "接下来我们提供一系列简单的小游戏来加深印象", "金克木克土克水克火克金", "小提示 :黄金绿树黑土水蓝火红");
 	}
 
 	@Override

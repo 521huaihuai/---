@@ -35,7 +35,7 @@ public class Game_14 extends CommonGuideGame_00_20   {
 	@Override
 	public void detailLogic() {
 		if (mCollectionNUM == 20) {
-			Utils.enterNextCheckPoint("下一关", "在30秒内收集不同于自身颜色的斑点15个");
+			enterNextCheckPoint("下一关", "在30秒内收集不同于自身颜色的斑点15个");
 		}
 	}
 

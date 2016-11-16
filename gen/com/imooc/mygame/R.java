@@ -38,18 +38,24 @@ some parent container.
     }
     public static final class drawable {
         public static final int aaa=0x7f020000;
-        public static final int detect=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int icon=0x7f020003;
-        public static final int img_appwidget91_voice_playmode_normal=0x7f020004;
-        public static final int img_appwidget91_voice_refresh_pressed=0x7f020005;
-        public static final int img_button_minilyric_lock=0x7f020006;
-        public static final int img_favourite_normal=0x7f020007;
-        public static final int img_favourite_selected=0x7f020008;
-        public static final int img_index_1=0x7f020009;
-        public static final int img_index_2=0x7f02000a;
-        public static final int img_index_3=0x7f02000b;
-        public static final int rece=0x7f02000c;
+        public static final int bd_wallet_pwd_icon=0x7f020001;
+        public static final int detect=0x7f020002;
+        public static final int evaluation_0=0x7f020003;
+        public static final int evaluation_1=0x7f020004;
+        public static final int food_ratingbar_full_filled=0x7f020005;
+        public static final int ic_launcher=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int img_appwidget91_voice_playmode_normal=0x7f020008;
+        public static final int img_appwidget91_voice_refresh_pressed=0x7f020009;
+        public static final int img_button_minilyric_lock=0x7f02000a;
+        public static final int img_favourite_normal=0x7f02000b;
+        public static final int img_favourite_selected=0x7f02000c;
+        public static final int img_index_1=0x7f02000d;
+        public static final int img_index_2=0x7f02000e;
+        public static final int img_index_3=0x7f02000f;
+        public static final int rece=0x7f020010;
+        public static final int wallet_base_safekeyboard_lock=0x7f020011;
+        public static final int wallet_base_safekeyboard_lock_small=0x7f020012;
     }
     public static final class id {
         public static final int action_settings=0x7f080001;

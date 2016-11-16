@@ -69,7 +69,7 @@ public class Game_20 extends CommonGuideGame_00_20 implements IMoveListener
 			if (mSnake.getList().getFirst().getX() >= MainActivity.screenWidth)
 			{
 				isSuccess = true;
-				Utils.enterNextCheckPoint("准备好了吗?", "接下来我们将展开更加丰富的玩法(真的很晕 =_=)");
+				enterNextCheckPoint("准备好了吗?", "接下来我们将展开更加丰富的玩法(真的很晕 =_=)");
 			}
 		}
 	}

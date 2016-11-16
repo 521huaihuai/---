@@ -9,10 +9,14 @@ import com.imooc.mySufaceView.ISurfaceViewCallBack;
 import com.imooc.mySufaceView.MainActivity;
 import com.imooc.mySufaceView.MyAplication;
 import com.imooc.mySufaceView.Pos;
+import com.imooc.mygame.R;
 import com.imooc.utils.Utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -26,6 +30,17 @@ public class MenuCallBack implements ISurfaceViewCallBack
 	private Vector<PieceParticle> mMoveVector;
 	private Vector<PieceParticle> mMoveVectorB;
 	private float textZie;
+	private Bitmap mBitmap;
+	// 得分图标
+	private Bitmap scoreBitmap_0;
+	private Bitmap scoreBitmap_0_left;
+	private Bitmap scoreBitmap_0_right;
+	private Bitmap scoreBitmap_1;
+	private Bitmap scoreBitmap_1_left;
+	private Bitmap scoreBitmap_1_right;
+	private Bitmap scoreBitmap_2;
+	private Bitmap scoreBitmap_2_left;
+	private Bitmap scoreBitmap_2_right;
 
 
 	public MenuCallBack(GameMenu... gameMenus)
@@ -45,6 +60,20 @@ public class MenuCallBack implements ISurfaceViewCallBack
 		mMoveVector = manager.createBIGParticleWithMove(20, MyConstant.MID_PARTICLE_RADIUS);
 		mMoveVectorB = manager.createBIGParticleWithMove(10, MyConstant.BIG_PARTICLE_RADIUS);
 		textZie = MyAplication.getTextSize();
+		mBitmap = BitmapFactory.decodeResource(MyAplication.getContext().getResources(), R.drawable.wallet_base_safekeyboard_lock_small);
+		scoreBitmap_0 = BitmapFactory.decodeResource(MyAplication.getContext().getResources(), R.drawable.evaluation_0);
+		scoreBitmap_1 = BitmapFactory.decodeResource(MyAplication.getContext().getResources(), R.drawable.evaluation_1);
+		scoreBitmap_2 = BitmapFactory.decodeResource(MyAplication.getContext().getResources(), R.drawable.food_ratingbar_full_filled);
+		Matrix roateMatrix_left = new Matrix();
+		roateMatrix_left.setRotate(-20);
+		Matrix roateMatrix_right = new Matrix();
+		roateMatrix_right.setRotate(20);
+		scoreBitmap_0_left = Bitmap.createBitmap(scoreBitmap_0, 0, 0, scoreBitmap_0.getWidth(), scoreBitmap_0.getHeight(), roateMatrix_left, false);
+		scoreBitmap_0_right = Bitmap.createBitmap(scoreBitmap_0, 0, 0, scoreBitmap_0.getWidth(), scoreBitmap_0.getHeight(), roateMatrix_right, false);
+		scoreBitmap_1_left = Bitmap.createBitmap(scoreBitmap_1, 0, 0, scoreBitmap_1.getWidth(), scoreBitmap_1.getHeight(), roateMatrix_left, false);
+		scoreBitmap_1_right = Bitmap.createBitmap(scoreBitmap_1, 0, 0, scoreBitmap_1.getWidth(), scoreBitmap_1.getHeight(), roateMatrix_right, false);
+		scoreBitmap_2_left = Bitmap.createBitmap(scoreBitmap_2, 0, 0, scoreBitmap_2.getWidth(), scoreBitmap_2.getHeight(), roateMatrix_left, false);
+		scoreBitmap_2_right = Bitmap.createBitmap(scoreBitmap_2, 0, 0, scoreBitmap_2.getWidth(), scoreBitmap_2.getHeight(), roateMatrix_right, false);
 	}
 
 	@Override
@@ -58,12 +87,24 @@ public class MenuCallBack implements ISurfaceViewCallBack
 		{
 			pos = menu.getPos();
 			paint.setColor(MyConstant.COLOR_BLACK);
-			if (menu.isLocked() == 0)
+			if (menu.isLocked() == 1)
 			{
 
 				paint.setAlpha(MyConstant.LOCK_ALPHA);
 			}
-			canvas.drawCircle(pos.getX(), pos.getY(), mRadius, paint);
+			canvas.drawCircle(pos.getX(), pos.getY(), Utils.getAdapterMenuRadius(), paint);
+
+			paint.setAlpha(255);
+			if (menu.isLocked() == 0)
+			{
+				// 绘制上锁图标
+				canvas.drawBitmap(mBitmap, pos.getX() - mBitmap.getWidth() / 2, pos.getY() + mBitmap.getHeight() / 2, paint);
+			}
+			else
+			{
+				// 绘制得分图标
+				drawScoreBitmap(menu.getSocre(), canvas, paint, pos.getX(), pos.getY());
+			}
 			paint.setColor(MyConstant.COLORS[2]);
 			paint.setTextSize(MyAplication.getTextSize());
 			int po = menu.getCheckpoint();
@@ -198,5 +239,72 @@ public class MenuCallBack implements ISurfaceViewCallBack
 			particle.reflectParticle(1.0f);
 		}
 
+	}
+
+	/**
+	 * 绘制星星判定
+	 */
+	public void drawScoreBitmap(int score, Canvas canvas, Paint paint, int centerX, int centerY)
+	{
+		score = score / 10;
+		switch (score)
+		{
+			case -1:
+				break;
+			// 0 - 9分
+			case 0:
+				canvas.drawBitmap(scoreBitmap_0_left, centerX - Utils.getAdapterMenuRadius() / 3 - scoreBitmap_0_left.getWidth() / 2,
+						centerY + scoreBitmap_0_left.getHeight() / 2, paint);
+				canvas.drawBitmap(scoreBitmap_0, centerX - scoreBitmap_0.getWidth() / 2, centerY + scoreBitmap_0.getHeight(), paint);
+				canvas.drawBitmap(scoreBitmap_0_right, centerX + Utils.getAdapterMenuRadius() / 3 - scoreBitmap_0_right.getWidth() / 2,
+						centerY + scoreBitmap_0_right.getHeight() / 2, paint);
+				break;
+			case 1:
+				canvas.drawBitmap(scoreBitmap_1_left, centerX - Utils.getAdapterMenuRadius() / 3 - scoreBitmap_1_left.getWidth() / 2,
+						centerY + scoreBitmap_1_left.getHeight() / 2, paint);
+				canvas.drawBitmap(scoreBitmap_0, centerX - scoreBitmap_0.getWidth() / 2, centerY + scoreBitmap_0.getHeight(), paint);
+				canvas.drawBitmap(scoreBitmap_0_right, centerX + Utils.getAdapterMenuRadius() / 3 - scoreBitmap_0_right.getWidth() / 2,
+						centerY + scoreBitmap_0_right.getHeight() / 2, paint);
+				break;
+			case 2:
+				canvas.drawBitmap(scoreBitmap_2_left, centerX - Utils.getAdapterMenuRadius() / 3 - scoreBitmap_2_left.getWidth() / 2,
+						centerY + scoreBitmap_2_left.getHeight() / 2, paint);
+				canvas.drawBitmap(scoreBitmap_0, centerX - scoreBitmap_0.getWidth() / 2, centerY + scoreBitmap_0.getHeight(), paint);
+				canvas.drawBitmap(scoreBitmap_0_right, centerX + Utils.getAdapterMenuRadius() / 3 - scoreBitmap_0_right.getWidth() / 2,
+						centerY + scoreBitmap_0_right.getHeight() / 2, paint);
+
+				break;
+			case 3:
+				canvas.drawBitmap(scoreBitmap_2_left, centerX - Utils.getAdapterMenuRadius() / 3 - scoreBitmap_2_left.getWidth() / 2,
+						centerY + scoreBitmap_2_left.getHeight() / 2, paint);
+				canvas.drawBitmap(scoreBitmap_1, centerX - scoreBitmap_1.getWidth() / 2, centerY + scoreBitmap_1.getHeight(), paint);
+				canvas.drawBitmap(scoreBitmap_0_right, centerX + Utils.getAdapterMenuRadius() / 3 - scoreBitmap_0_right.getWidth() / 2,
+						centerY + scoreBitmap_0_right.getHeight() / 2, paint);
+				break;
+			case 4:
+				canvas.drawBitmap(scoreBitmap_2_left, centerX - Utils.getAdapterMenuRadius() / 3 - scoreBitmap_2_left.getWidth() / 2,
+						centerY + scoreBitmap_2_left.getHeight() / 2, paint);
+				canvas.drawBitmap(scoreBitmap_2, centerX - scoreBitmap_2.getWidth() / 2, centerY + scoreBitmap_2.getHeight(), paint);
+				canvas.drawBitmap(scoreBitmap_0_right, centerX + Utils.getAdapterMenuRadius() / 3 - scoreBitmap_0_right.getWidth() / 2,
+						centerY + scoreBitmap_0_right.getHeight() / 2, paint);
+				break;
+			case 5:
+				canvas.drawBitmap(scoreBitmap_2_left, centerX - Utils.getAdapterMenuRadius() / 3 - scoreBitmap_2_left.getWidth() / 2,
+						centerY + scoreBitmap_2_left.getHeight() / 2, paint);
+				canvas.drawBitmap(scoreBitmap_2, centerX - scoreBitmap_2.getWidth() / 2, centerY + scoreBitmap_2.getHeight(), paint);
+				canvas.drawBitmap(scoreBitmap_1_right, centerX + Utils.getAdapterMenuRadius() / 3 - scoreBitmap_1_right.getWidth() / 2,
+						centerY + scoreBitmap_1_right.getHeight() / 2, paint);
+
+				break;
+
+			// 60分以上
+			default:
+				canvas.drawBitmap(scoreBitmap_2_left, centerX - Utils.getAdapterMenuRadius() / 3 - scoreBitmap_2_left.getWidth() / 2,
+						centerY + scoreBitmap_2_left.getHeight() / 2, paint);
+				canvas.drawBitmap(scoreBitmap_2, centerX - scoreBitmap_2.getWidth() / 2, centerY + scoreBitmap_2.getHeight(), paint);
+				canvas.drawBitmap(scoreBitmap_2_right, centerX + Utils.getAdapterMenuRadius() / 3 - scoreBitmap_2_right.getWidth() / 2,
+						centerY + scoreBitmap_2_right.getHeight() / 2, paint);
+				break;
+		}
 	}
 }

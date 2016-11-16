@@ -26,7 +26,8 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 
-public abstract class CommonGame_40_60 implements ISurfaceViewCallBack, ICrossParticleListener, IPowerfulParticleListener, ICrossBlockListener, ICrossDenfogListener
+public abstract class CommonGame_40_60
+		implements ISurfaceViewCallBack, ICrossParticleListener, IPowerfulParticleListener, ICrossBlockListener, ICrossDenfogListener
 {
 
 	// 粒子
@@ -316,7 +317,10 @@ public abstract class CommonGame_40_60 implements ISurfaceViewCallBack, ICrossPa
 		{
 			for (Block block : mBlocks)
 			{
-				if (block.judgeIsInBlock(firstNode)) { return block; }
+				if (block.judgeIsInBlock(firstNode))
+				{
+					return block;
+				}
 			}
 		}
 		return null;
@@ -333,7 +337,10 @@ public abstract class CommonGame_40_60 implements ISurfaceViewCallBack, ICrossPa
 		{
 			for (DenseFog denseFog : mDenfogs)
 			{
-				if (denseFog.judgeIsInDenseFog(firstNode)) { return denseFog; }
+				if (denseFog.judgeIsInDenseFog(firstNode))
+				{
+					return denseFog;
+				}
 			}
 		}
 		return null;
@@ -377,7 +384,10 @@ public abstract class CommonGame_40_60 implements ISurfaceViewCallBack, ICrossPa
 	 */
 	private PowerfulParticleAbstract getAllPowerfulParticle(Vector<PowerfulParticleAbstract> mPowfularticles2)
 	{
-		if (mPowfularticles2 == null) { return null; }
+		if (mPowfularticles2 == null)
+		{
+			return null;
+		}
 		int cenX = firstNode.getX();
 		int cenY = firstNode.getY();
 		int currentX;
@@ -488,6 +498,30 @@ public abstract class CommonGame_40_60 implements ISurfaceViewCallBack, ICrossPa
 	public void surfaceCreatedCallBack(int screenW, int screenH)
 	{
 
+	}
+
+	/**
+	 * 进入下一关
+	 */
+	public void enterNextCheckPoint(String title, String... messages)
+	{
+		enterNextCheckPoint(title, 1, 1, 1, messages);
+	}
+
+	public void enterNextCheckPoint(String title, float x1_time, float x2_hp, float x3_collection, String... messages)
+	{
+		enterNextCheckPoint(title, 60, x1_time, x2_hp, x3_collection, messages);
+	}
+
+	public void enterNextCheckPoint(String title, int baseScore, String... messages)
+	{
+		enterNextCheckPoint(title, baseScore, 1, 1, 1, messages);
+	}
+
+	public void enterNextCheckPoint(String title, int baseScore, float x1_time, float x2_hp, float x3_collection, String... messages)
+	{
+		Utils.enterNextCheckPoint(title, Utils.judgeScores(getUsedTime(), mSnake.getCurrentHp(), mCollectionNUM, x1_time, x2_hp, x3_collection, baseScore),
+				messages);
 	}
 
 }

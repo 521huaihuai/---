@@ -38,5 +38,5 @@ public class MyConstant {
 	public static final int POWERFULPARTICLE_RADIUS = 30;
 	public static final int BIG_PARTICLE_RADIUS = 25;
 	public static final int MID_PARTICLE_RADIUS = 15;
-	public static final int LOCK_ALPHA = 170;
+	public static final int LOCK_ALPHA = 140;
 }

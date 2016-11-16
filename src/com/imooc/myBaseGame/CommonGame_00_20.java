@@ -121,7 +121,7 @@ public abstract class CommonGame_00_20 implements ISurfaceViewCallBack, ICrossPa
 		}
 		// 子类的绘制
 		childDraw(canvas, paint, screenWidth, screenHeight);
-		
+
 		// 绘制大概1-2ms
 		paint.setColor(MyConstant.COLOR_RED);
 		// 绘制血量
@@ -130,7 +130,7 @@ public abstract class CommonGame_00_20 implements ISurfaceViewCallBack, ICrossPa
 		Utils.drawCollection(canvas, paint, mCollectionNUM);
 		// 绘制时间
 		Utils.drawTime(canvas, paint, screenWidth, System.currentTimeMillis() - oldTime);
-		
+
 		// 绘制粒子//绘制大概8-10ms
 		for (PieceParticle particle : mVector)
 		{
@@ -248,7 +248,6 @@ public abstract class CommonGame_00_20 implements ISurfaceViewCallBack, ICrossPa
 		return vector;
 	}
 
-
 	/**
 	 * 移除所有穿过点
 	 */
@@ -259,7 +258,6 @@ public abstract class CommonGame_00_20 implements ISurfaceViewCallBack, ICrossPa
 			mVector.remove(particle);
 		}
 	}
-
 
 	/**
 	 * 获取粒子
@@ -329,6 +327,30 @@ public abstract class CommonGame_00_20 implements ISurfaceViewCallBack, ICrossPa
 	public void surfaceCreatedCallBack(int screenW, int screenH)
 	{
 
+	}
+
+	/**
+	 * 进入下一关
+	 */
+	public void enterNextCheckPoint(String title, String... messages)
+	{
+		enterNextCheckPoint(title, 1, 1, 1, messages);
+	}
+
+	public void enterNextCheckPoint(String title, float x1_time, float x2_hp, float x3_collection, String... messages)
+	{
+		enterNextCheckPoint(title, 60, x1_time, x2_hp, x3_collection, messages);
+	}
+
+	public void enterNextCheckPoint(String title, int baseScore, String... messages)
+	{
+		enterNextCheckPoint(title, baseScore, 1, 1, 1, messages);
+	}
+
+	public void enterNextCheckPoint(String title, int baseScore, float x1_time, float x2_hp, float x3_collection, String... messages)
+	{
+		Utils.enterNextCheckPoint(title, Utils.judgeScores(getUsedTime(), mSnake.getCurrentHp(), mCollectionNUM, x1_time, x2_hp, x3_collection, baseScore),
+				messages);
 	}
 
 }

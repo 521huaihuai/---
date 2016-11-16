@@ -44,7 +44,7 @@ public class Game_15 extends CommonGuideGame_00_20
 	{
 		if (mCollectionNUM == 15)
 		{
-			Utils.enterNextCheckPoint("下一关", "在20秒内收集不同于自身颜色的斑点20个");
+			enterNextCheckPoint("下一关", "在20秒内收集不同于自身颜色的斑点20个");
 		}
 	}
 

@@ -35,7 +35,7 @@ public class Game_16 extends CommonGuideGame_00_20{
 	@Override
 	public void detailLogic() {
 		if (mCollectionNUM == 20) {
-			Utils.enterNextCheckPoint("go on !", "从最左侧移动到最右侧", "收集15个,不触碰相克颜色");
+			enterNextCheckPoint("go on !", "从最左侧移动到最右侧", "收集15个,不触碰相克颜色");
 		}
 	}
 

@@ -146,6 +146,27 @@ public class MySQLiteGame
 	}
 
 	/**
+	 * 根据id查找star
+	 * 
+	 * @param id
+	 * @return 0-100分
+	 */
+	public Integer findStar(Integer ID)
+	{
+		int star = 0;
+		SQLiteDatabase db = helper.getWritableDatabase();
+		Cursor cursor = db.rawQuery("SELECT star FROM game WHERE gameId=?", new String[]
+		{ ID.toString() });
+		if (cursor.moveToNext())
+		{
+			star = cursor.getInt(0);
+		}
+		cursor.close();
+		db.close();
+		return star;
+	}
+
+	/**
 	 * 查询所有的mySongs 对象
 	 * 
 	 * @return mySongs

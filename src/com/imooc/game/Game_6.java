@@ -76,7 +76,7 @@ public class Game_6 extends CommonGuideGame_00_20
 		{
 			e.printStackTrace();
 		}
-		Utils.enterNextCheckPoint("Ok, 感觉如何?", "再记一记吧?!", "金克木克土克水克火克金", "黄克绿克黑克蓝克红克黄");
+		enterNextCheckPoint("Ok, 感觉如何?", "再记一记吧?!", "金克木克土克水克火克金", "黄克绿克黑克蓝克红克黄");
 	}
 
 	@Override

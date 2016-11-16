@@ -35,7 +35,7 @@ public class Game_12 extends CommonGuideGame_00_20{
 	@Override
 	public void detailLogic() {
 		if (mCollectionNUM == 15) {
-			Utils.enterNextCheckPoint("下一关", "在20秒内收集斑点20个");
+			enterNextCheckPoint("下一关", "在20秒内收集斑点20个");
 		}
 	}
 

@@ -44,7 +44,7 @@ public class Game_1 implements ISurfaceViewCallBack {
 				if (index == 4) {
 					MainActivity.currentRelevant = 1;
 					//MyAplication.getSurfaceView().setOnISurfaceViewCallBack(new Game_2());
-					Utils.enterNextCheckPoint("下一关", "任务 : 尝试尽快收集屏幕上的任意20个小斑点");
+					Utils.enterNextCheckPoint("下一关",100, "任务 : 尝试尽快收集屏幕上的任意20个小斑点");
 				}
 				alpha = 255;
 			}

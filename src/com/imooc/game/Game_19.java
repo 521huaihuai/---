@@ -69,7 +69,7 @@ public class Game_19 extends CommonGuideGame_00_20 implements IMoveListener
 			if (mSnake.getList().getFirst().getX() >= MainActivity.screenWidth)
 			{
 				isSuccess = true;
-				Utils.enterNextCheckPoint("下一关", "从最左侧无停顿移动到最右侧", "15秒内收集25个");
+				enterNextCheckPoint("下一关", "从最左侧无停顿移动到最右侧", "15秒内收集25个");
 			}
 		}
 	}
