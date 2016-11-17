@@ -57,9 +57,9 @@ public class CommonGameMenu implements ISurfaceViewCallBack
 		scoreBitmap_1 = BitmapFactory.decodeResource(MyAplication.getContext().getResources(), R.drawable.evaluation_1);
 		scoreBitmap_2 = BitmapFactory.decodeResource(MyAplication.getContext().getResources(), R.drawable.food_ratingbar_full_filled);
 		Matrix roateMatrix_left = new Matrix();
-		roateMatrix_left.setRotate(-20);
+		roateMatrix_left.setRotate(20);
 		Matrix roateMatrix_right = new Matrix();
-		roateMatrix_right.setRotate(20);
+		roateMatrix_right.setRotate(-20);
 		scoreBitmap_0_left = Bitmap.createBitmap(scoreBitmap_0, 0, 0, scoreBitmap_0.getWidth(), scoreBitmap_0.getHeight(), roateMatrix_left, false);
 		scoreBitmap_0_right = Bitmap.createBitmap(scoreBitmap_0, 0, 0, scoreBitmap_0.getWidth(), scoreBitmap_0.getHeight(), roateMatrix_right, false);
 		scoreBitmap_1_left = Bitmap.createBitmap(scoreBitmap_1, 0, 0, scoreBitmap_1.getWidth(), scoreBitmap_1.getHeight(), roateMatrix_left, false);
@@ -79,13 +79,16 @@ public class CommonGameMenu implements ISurfaceViewCallBack
 			Pos pos = null;
 			pos = menu.getPos();
 			paint.setColor(MyConstant.COLOR_BLACK);
+//			RadialGradient rg = new RadialGradient(pos.getX(), pos.getY(), Utils.getAdapterMenuRadius() / 2, Color.WHITE, MyConstant.COLOR_BLACK,
+//					TileMode.MIRROR);
+//			paint.setShader(rg);
 			if (menu.isLocked() == 1)
 			{
 
-				paint.setAlpha(MyConstant.LOCK_ALPHA);
+				// paint.setAlpha(MyConstant.LOCK_ALPHA);
 			}
 			canvas.drawCircle(pos.getX(), pos.getY(), mRaius, paint);
-
+			//paint.setShader(null);
 			paint.setAlpha(255);
 			if (menu.isLocked() == 0)
 			{

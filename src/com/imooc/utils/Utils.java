@@ -38,7 +38,7 @@ public class Utils
 
 	public enum Position
 	{
-		CEN, LEFT, RIGHT, CEN_UP, CEN_DOEN, UP_RIGHT, UP_LEFT, CEN_UP_UP
+		CEN, LEFT, RIGHT, CEN_UP, CEN_DOEN, UP_RIGHT, UP_LEFT, CEN_UP_UP, CEN_DOWN_DOWN
 	}
 
 
@@ -146,7 +146,9 @@ public class Utils
 			case CEN_DOEN:
 				canvas.drawText(text, MainActivity.screenWidth / 2 - width / 2, 2 * MainActivity.screenHeight / 3, paint);
 				break;
-
+			case CEN_DOWN_DOWN:
+				canvas.drawText(text, MainActivity.screenWidth / 2 - width / 2, 4 * MainActivity.screenHeight / 5, paint);
+				break;
 			case UP_RIGHT:
 				canvas.drawText(text, MainActivity.screenWidth - width, MainActivity.screenHeight / 3, paint);
 				break;
@@ -176,8 +178,10 @@ public class Utils
 	public static void drawMessageText(String[] messages, Canvas canvas, int size, Paint paint)
 	{
 		paint.setTextSize(size);
+		int index = 0;
 		for (int i = 0; i < messages.length; i++)
 		{
+			index = 0;
 			int length = messages[i].length();
 			int realLength = length;
 			for (int j = 0; j < length; j++)
@@ -185,9 +189,10 @@ public class Utils
 				if (!isChineseByBlock(messages[i].charAt(j)))
 				{
 					realLength--;
+					index ++;
 				}
 			}
-			int width = realLength * size;
+			int width = (int) (realLength * size + index * 1.0f / 3 * size);
 			canvas.drawText(messages[i], MainActivity.screenWidth / 2 - width / 2, MainActivity.screenHeight / 3.5f + (1 + 0.35f) * size * i, paint);
 		}
 		paint.setTextSize(MyAplication.getTextSize());

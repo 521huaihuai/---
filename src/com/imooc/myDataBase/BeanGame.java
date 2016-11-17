@@ -50,6 +50,11 @@ public class BeanGame
 		return lock;
 	}
 
+	
+	public void setLockFalse()
+	{
+		lock = 0;
+	}
 	public String getCreated()
 	{
 		// TODO Auto-generated method stub

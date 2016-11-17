@@ -9,8 +9,11 @@ import com.imooc.utils.Utils;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -30,6 +33,9 @@ public class MainActivity extends Activity
 	public static int screenWidth;
 	public static int screenHeight;
 	public static int currentRelevant;
+	
+	//数据库
+	private MySQLiteGame sqllite;
 
 
 	@Override
@@ -48,7 +54,14 @@ public class MainActivity extends Activity
 		{
 			textSize = 50;
 		}
+		int titleSize = Utils.loadDataInt(this, "titleSize");
+		if (titleSize == 1)
+		{
+			titleSize = 70;
+		}
 		myAplication.setTextSize(textSize);
+		myAplication.setTitleSize(titleSize);
+		
 		// 加载关卡
 		currentRelevant = Utils.loadDataInt(this, "checkPoint");
 
@@ -56,13 +69,13 @@ public class MainActivity extends Activity
 		{
 			new MySQLiteGame(this).insert(new BeanGame(1, 1, 100, 1, ""));
 		}
-
+		
+		sqllite = new MySQLiteGame(this);
 		// 显示自定义的SurfaceView视图
 		surfaceView = new MySurfaceView(this);
 		surfaceView.setSleepTime(MyConstant.SLEEPTIME);
 		surfaceView.setOnISurfaceViewCallBack(new MenuCallBack());
 		myAplication.setSurfaceView(surfaceView);
-
 		setContentView(surfaceView);
 	}
 
@@ -83,9 +96,40 @@ public class MainActivity extends Activity
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public static long getCurrentTime()
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		return System.currentTimeMillis();
+		menu.add(0, 1, 0, "关于");
+		menu.add(0, 2, 0, "规则");
+		menu.add(0, 3, 0, "解锁");
+		menu.add(0, 4, 0, "退出");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case 1:
+				// 游戏介绍
+				surfaceView.setOnISurfaceViewCallBack(new Game_introduce());
+				break;
+			case 2:
+				// 游戏规则
+				surfaceView.setOnISurfaceViewCallBack(new Game_rule());
+				break;
+			case 3:
+				// 解锁关卡
+				String imei = ((TelephonyManager)getSystemService(TELEPHONY_SERVICE)).getDeviceId();
+				surfaceView.setOnISurfaceViewCallBack(new Game_Lock(imei));
+				break;
+			case 4:
+				// 推出游戏
+				android.os.Process.killProcess(android.os.Process.myPid());
+				break;
+		}
+		return true;
 	}
 
 }
